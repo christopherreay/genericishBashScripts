@@ -1,0 +1,7 @@
+mkdir -p  ~/context/reality/hardware/ati/radeon/
+cd ~/context/reality/hardware/ati/radeon/
+git clone git://people.freedesktop.org/~mareko/libtxc_dxtn
+cd libtxc_dxtn
+./autogen.sh
+./configure --prefix=/usr
+sudo make install

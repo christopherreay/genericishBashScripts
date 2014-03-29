@@ -1,0 +1,9 @@
+sudo apt-get install python2.7-dev
+wget http://peak.telecommunity.com/dist/ez_setup.py
+sudo python ez_setup.py
+sudo easy_install virtualenv
+virtualenv --no-site-packages $1
+cd $1
+bin/easy_install pyramid
+
+bin/easy_install ipython ipdb

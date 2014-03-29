@@ -1,0 +1,4 @@
+sizemode=1600x900
+
+xrandr --output VGA-0 --mode $sizemode --above LVDS
+xrandr --output CRT1 --mode $sizemode --above LVDS

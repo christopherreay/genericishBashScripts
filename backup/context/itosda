@@ -1,0 +1,6 @@
+cd /home/christopher/context/itosda
+
+git add .
+git gc
+git commit -m "Cron Commit from SirGranite"
+jgit push s3.itosda master

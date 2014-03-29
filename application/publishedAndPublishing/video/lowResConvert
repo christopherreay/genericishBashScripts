@@ -1,0 +1,5 @@
+mkdir lowRes
+for file in *.mp4
+do
+  ffmpeg -i $file  -b 512k -vcodec mpeg1video -acodec copy "lowRes/lowres.$file"
+done

@@ -1,0 +1,6 @@
+cd /home/christopher/context/christopherReay/interface/pylons/pyramid/pamid_virtualEnv/env/src/interface
+
+git add .
+git gc
+git commit -m "Cron Commit from SirGranite"
+git push origin master

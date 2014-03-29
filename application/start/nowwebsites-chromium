@@ -1,0 +1,2 @@
+cd ~/context/nowWebsites/browserProfiles/chromium/christopher.reay@nowwebsites.co.uk/
+chromium-browser --user-data-dir=.

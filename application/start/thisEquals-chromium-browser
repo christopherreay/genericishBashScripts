@@ -1,0 +1,2 @@
+cd ~/context/browserProfiles/chromium/thisEquals
+chromium-browser --user-data-dir=.

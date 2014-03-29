@@ -1,0 +1,8 @@
+sizemode=1600x900_philips
+
+xrandr --newmode "$sizemode"  118.25  1600 1696 1856 2112  900 903 908 934 -hsync +vsync
+xrandr --addmode CRT1 "$sizemode"
+xrandr --addmode VGA-0 "$sizemode"
+
+xrandr --output VGA-0 --mode $sizemode --above LVDS
+xrandr --output CRT1 --mode $sizemode --above LVDS

@@ -1,0 +1,2 @@
+cd context/reality/hardware/ati/fglrx-legacy/
+sudo dpkg -i *.deb

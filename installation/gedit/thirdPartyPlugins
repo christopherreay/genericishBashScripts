@@ -1,0 +1,9 @@
+git clone https://code.google.com/p/advanced-find/
+cd advanced_find/src
+./install_all.sh
+cd ../..
+
+sudo add-apt-repository ppa:gedit-bc-dev-plugins/releases
+sudo apt-get update
+sudo apt-get install gedit-classbrowser3g
+

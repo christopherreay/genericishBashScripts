@@ -1,0 +1,3 @@
+chromium-browser &
+~/Scripts/application/start/itosda-chromium-browser.sh &
+firefox &

@@ -1,0 +1,5 @@
+sudo chmod 777 /dev/video0
+
+ffmpeg -f video4linux2 -i /dev/video0 $1.mp4 &
+arecord -f S16_LE -d 10000000 -D hw:1,0 $1.wav
+avconv -f video4linux2 -s 640x480 -i /dev/video0 -f alsa -i plughw:LX3000,0  -y webcam.mp4
