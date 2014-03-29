@@ -1,0 +1,5 @@
+mkdir -p ~/context/$1
+mkdir -p ~/browserProfiles/$1
+
+echo "openContext $1 && chromium-browser --user-data-dir=." > ~/Scripts/application/start/chromium_$1
+chmod +r ~/Scripts/application/start/chromium_$1
