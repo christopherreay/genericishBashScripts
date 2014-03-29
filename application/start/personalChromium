@@ -1,2 +1,2 @@
-. openContext thisEquals
+. openContext personal
 chromium-browser --user-data-dir=.

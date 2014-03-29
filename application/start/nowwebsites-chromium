@@ -1,2 +1,2 @@
-cd ~/context/nowWebsites/browserProfiles/chromium/christopher.reay@nowwebsites.co.uk/
+. openContext nowwebsites
 chromium-browser --user-data-dir=.

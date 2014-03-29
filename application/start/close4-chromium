@@ -1,1 +1,2 @@
-cd ~/context/browserProfiles/chromium/close4/christopher.reay@close4.com && chromium-browser --user-data-dir=.
+. openContext close4
+chromium-browser --user-data-dir=.

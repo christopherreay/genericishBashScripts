@@ -1,1 +1,2 @@
-cd ~/context/browserProfiles/chromium/instant/christopherreay@gmail.com && chromium-browser --user-data-dir=.
+openContext instant && chromium-browser --user-data-dir=.
+
