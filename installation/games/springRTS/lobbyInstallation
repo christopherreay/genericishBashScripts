@@ -1,5 +1,0 @@
-sudo apt-get update
-sudo apt-get install libmpg123-dev libtorrent-rasterbar-dev libwxgtk2.6-dev libnotify-dev 
-
-echo "download Spring lobby source from: http://springlobby.info/landing/index.php"
-

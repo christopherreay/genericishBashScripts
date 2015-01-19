@@ -1,0 +1,2 @@
+. openContext germany
+chromium-browser --user-data-dir=.

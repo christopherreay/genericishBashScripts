@@ -1,0 +1,4 @@
+sudo apt-get install mtp-tools mtpfs
+mtp-detect | grep idVendor
+mtp-detect | grep idProduct
+gksu gedit /etc/udev/rules.d/51-android.rules
