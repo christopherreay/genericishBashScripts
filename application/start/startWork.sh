@@ -1,7 +1,7 @@
 cd /home/christopher/scripts/userInterface/startApplications
-chromium-browser &
+google-chrome &
 sleep 5
-./itosda-chromium-browser.sh &
+./itosda-google-chrome.sh &
 sleep 2
 firefox &
 sleep 5
