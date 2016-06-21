@@ -1,2 +1,2 @@
-. openContext thisEquals
+. openContext josslyn
 google-chrome --user-data-dir=.

@@ -1,0 +1,9 @@
+gtf 1600 900 60.0 | grep Modeline
+
+xrandr --newmode "1600x900_60.00"  119.00  1600 1696 1864 2128  900 901 904 932  -HSync +Vsync
+xrandr --addmode VGA1 "1600x900_60.00"
+sizemode="1600x900_60.00"
+
+xrandr --output VGA-0 --mode "$sizemode" --above LVDS
+xrandr --output CRT1 --mode "$sizemode" --above LVDS
+xrandr --output VGA1 --mode "$sizemode" --left-of LVDS1

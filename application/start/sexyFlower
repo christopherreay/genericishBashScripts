@@ -1,2 +1,2 @@
-. openContext thisEquals
+. openContext sexyFlower
 google-chrome --user-data-dir=.

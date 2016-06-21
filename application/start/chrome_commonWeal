@@ -1,2 +1,2 @@
-. openContext thisEquals
+. openContext commonWeal
 google-chrome --user-data-dir=.

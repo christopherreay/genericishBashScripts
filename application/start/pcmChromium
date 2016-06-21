@@ -1,0 +1,2 @@
+. openContext peoplesclimateedinburgh
+google-chrome --user-data-dir=.

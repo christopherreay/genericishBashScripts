@@ -1,2 +1,2 @@
-. openContext earthWays
+. openContext zooba 
 chromium-browser --user-data-dir=.

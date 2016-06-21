@@ -1,3 +1,3 @@
 ifconfig $1 down
-macchanger --endding $1
+macchanger -a $1
 ifconfig $1 up

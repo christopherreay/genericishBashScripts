@@ -1,2 +1,2 @@
-. openContext thisEquals
+. openContext radPan
 google-chrome --user-data-dir=.

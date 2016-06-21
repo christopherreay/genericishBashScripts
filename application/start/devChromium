@@ -1,0 +1,2 @@
+. openContext dev 
+chromium-browser --user-data-dir=.

@@ -1,0 +1,2 @@
+. openContext deepwalker
+chromium-browser --user-data-dir=.
