@@ -1,0 +1,2 @@
+. openContext thisEquals
+google-chrome --user-data-dir=$HOME/browserProfiles/thisEquals/chromium

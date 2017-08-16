@@ -1,2 +1,0 @@
-. openContext thisEquals
-google-chrome --user-data-dir=~/browserProfiles/thisEquals

@@ -1,0 +1,2 @@
+. openContext dayZee
+google-chrome --user-data-dir=~/browserProfiles/dayZee

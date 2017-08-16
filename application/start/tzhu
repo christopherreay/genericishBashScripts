@@ -1,0 +1,2 @@
+. openContext jzhu
+google-chrome --user-data-dir=~/context/tzhu

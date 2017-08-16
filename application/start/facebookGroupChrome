@@ -1,0 +1,2 @@
+. openContext facebookGroup
+google-chrome --user-data-dir=$HOME/browserProfiles/facebookGroup/
