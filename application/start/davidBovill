@@ -1,0 +1,2 @@
+. openContext davidBovill
+google-chrome --user-data-dir=~/browserProfiles/davidBovill
