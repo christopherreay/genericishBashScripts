@@ -1,0 +1,3 @@
+sudo apt-get install trickle
+
+crontab ~/Scripts/installation/newLinuxInstall/browserProfiles.data/syncBrowserProfiles.cte

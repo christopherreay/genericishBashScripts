@@ -1,0 +1,9 @@
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+mkdir -p /torrent/.ssh
+
+sudo ln -s $DIR/dataFiles/sshConfiguration   ~/.ssh/config
+
+sudo ln -s $DIR/dataFiles/germanySSHKey      /torrent/.ssh
+sudo ln -s $DIR/dataFiles/germanySSHKey.pub  /torrent/.ssh
+
