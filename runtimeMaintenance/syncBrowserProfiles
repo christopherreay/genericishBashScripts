@@ -1,8 +1,7 @@
 cd ~/browserProfiles
 
-git add -A
-git commit -m "auto commit"
+git add -A && git commit -m "auto commit"
 
-trickle -u 20 git push origin master 2>1 > ~/Scripts/status/_v_.runtimeMaintenance.syncBrowserProfiles.gitUploadStatus
+trickle -u 20 bash -c "git push origin master --porcelain 2>&1 | tee ~/Scripts/status/_v_.runtimeMaintenance.syncBrowserProfiles.gitUploadStatus"
 
 

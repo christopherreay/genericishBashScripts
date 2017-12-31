@@ -1,3 +1,20 @@
+scriptName=installation/newLinuxInstall/browserProfiles
+
+dataFileName=syncBrowserProfiles.cte
+userDataFileName=`whoami`.$dataFileName
+
+dataFileLocation=~/Scripts/$scriptName.data/$dataFileName
+userDataFileNameStateLocation=~/Scripts/_v_state/$scriptName.data/$userDataFileName
+cronFileLocation=/etc/cron.d/$userDataFileName
+
 sudo apt-get install trickle
 
-crontab ~/Scripts/installation/newLinuxInstall/browserProfiles.data/syncBrowserProfiles.cte
+git clone https://github.com/christopherreay/browserProfiles.git $HOME/browserProfiles
+
+mkdir -p $userDataFileNameStateLocation
+rm -r $userDataFileNameStateLocation
+
+sed s/\!\!username\!\!/`whoami`/ $dataFileLocation > $userDataFileNameStateLocation
+sudo ln -s $userDataFileNameStateLocation $cronFileLocation
+
+printf "@: created cronjob symlink @ $cronFileLocation\n"

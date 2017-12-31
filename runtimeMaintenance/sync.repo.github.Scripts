@@ -1,0 +1,7 @@
+cd ~/Scripts
+
+git add -A
+git commit -m "auto update"
+
+git push origin master
+

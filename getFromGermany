@@ -1,3 +1,2 @@
-rsync --verbose --progress --recursive --remove-source-files --append-verify --bwlimit=$1 germany@5.101.107.169:/home/germany/latestTorrents/ /torrent
-
+rsync --verbose --progress --recursive --remove-source-files --append-verify --bwlimit=$1 germany@5.101.107.169:/home/germany/latestTorrents/ /torrent && \
 ssh germany@5.101.107.169 'find /home/germany/latestTorrents/ ! -path /home/germany/latestTorrents/ -type d -delete'
