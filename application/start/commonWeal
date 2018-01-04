@@ -1,0 +1,2 @@
+. openContext commonWeal
+google-chrome --user-data-dir=$HOME/browserProfiles/commonWeal
