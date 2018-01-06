@@ -1,0 +1,5 @@
+touchPadID=`xinput list | grep TouchPad | sed 's/.*id=\([0-9]*\).*/\1/'`
+
+echo $touchPadID > ~/Scripts/_v_state/touchPadID
+
+xinput disable $touchPadID
