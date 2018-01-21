@@ -1,1 +1,1 @@
-wget -c --limit-rate $1 $2
+wget -c --limit-rate=$1 $2

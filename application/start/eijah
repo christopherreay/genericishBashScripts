@@ -1,0 +1,2 @@
+. openContext eijah
+google-chrome --user-data-dir=~/browserProfiles/eijah
