@@ -1,3 +1,5 @@
-echo ". openContext $1" > ~/Scripts/application/start/$1
-echo "google-chrome --user-data-dir=." >> ~/Scripts/application/start/$1
-chmod +x ~/Scripts/application/start/$1
+applicationDir=~/Scripts/application/start
+
+echo ". openContext $1" > $applicationDir/$1
+echo "google-chrome --user-data-dir=~/browserProfiles/$1" >> $applicationDir/$1
+chmod +x $applicationDir/$1 

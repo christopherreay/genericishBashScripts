@@ -1,0 +1,2 @@
+. openContext places.elderStreet 
+google-chrome --user-data-dir=~/browserProfiles/places.elderStreet

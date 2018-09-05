@@ -1,2 +1,2 @@
 . openContext atWorld
-google-chrome --user-data-dir=~/browserProfiles/atWorld
+google-chrome-beta --user-data-dir=~/browserProfiles/atWorld

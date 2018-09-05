@@ -1,0 +1,1 @@
+trickle -u $1 rsync --verbose --progress --recursive --append-verify /torrent/at/ springtime@167.99.246.30:/home/springtime/vids/

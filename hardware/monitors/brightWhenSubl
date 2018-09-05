@@ -1,0 +1,3 @@
+[ -f ~/@/programming ] || exit 0
+
+xdotool getactivewindow getwindowname | grep " - Sublime Text" && xrandr --output LVDS-1 --brightness 1.4 || xrandr --output LVDS-1 --brightness 1.0 

@@ -1,0 +1,2 @@
+. openContext reaysNSons
+google-chrome-beta --user-data-dir=~/browserProfiles/reaysNSons

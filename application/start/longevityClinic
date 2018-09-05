@@ -1,0 +1,2 @@
+. openContext jayDayZee
+google-chrome --user-data-dir=~/browserProfiles/jayDayZee
