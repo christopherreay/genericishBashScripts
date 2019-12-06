@@ -1,2 +1,2 @@
 . openContext scottCoin
-google-chrome --user-data-dir=~/browserProfiles/scottCoin
+useContextBrowser --user-data-dir=~/browserProfiles/scottCoin

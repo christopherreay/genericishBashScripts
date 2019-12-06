@@ -1,2 +1,2 @@
 . openContext jayDayZee.eva
-google-chrome --user-data-dir=~/context/jayDayZee.eva
+useContextBrowser --user-data-dir=~/context/jayDayZee.eva

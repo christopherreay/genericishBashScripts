@@ -1,2 +1,2 @@
 . openContext holochain.glasgow
-google-chrome --user-data-dir=~/browserProfiles/holochain.glasgow
+useContextBrowser --user-data-dir=~/browserProfiles/holochain.glasgow

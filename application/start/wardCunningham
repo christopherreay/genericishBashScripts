@@ -1,2 +1,2 @@
 . openContext wardCunningham
-google-chrome --user-data-dir=~/browserProfiles/wardCunningham
+useContextBrowser --user-data-dir=~/browserProfiles/wardCunningham

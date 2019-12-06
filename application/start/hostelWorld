@@ -1,2 +1,2 @@
 . openContext hostelWorld
-google-chrome --user-data-dir=~/browserProfiles/hostelWorld
+useContextBrowser --user-data-dir=~/browserProfiles/hostelWorld

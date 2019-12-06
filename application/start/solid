@@ -1,0 +1,2 @@
+. openContext solid
+useContextBrowser --user-data-dir=~/browserProfiles/solid

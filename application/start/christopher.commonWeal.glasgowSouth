@@ -1,2 +1,2 @@
 . openContext christopherreay.commonWeal.glasgowSouth
-google-chrome --user-data-dir=~/browserProfiles/christopherreay.commonWeal.glasgowSouth
+useContextBrowser --user-data-dir=~/browserProfiles/christopherreay.commonWeal.glasgowSouth

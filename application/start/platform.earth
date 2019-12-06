@@ -1,2 +1,2 @@
 . openContext platform.earth 
-google-chrome --user-data-dir=~/browserProfiles/platform.earth
+useContextBrowser --user-data-dir=~/browserProfiles/platform.earth

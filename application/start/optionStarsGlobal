@@ -1,2 +1,2 @@
 . openContext optionStarsGlobal
-google-chrome --user-data-dir=~/context/optionStarsGlobal
+useContextBrowser --user-data-dir=~/context/optionStarsGlobal

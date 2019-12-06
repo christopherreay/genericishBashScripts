@@ -1,5 +1,5 @@
 cd /home/christopher/scripts/userInterface/startApplications
-google-chrome &
+useContextBrowser &
 sleep 5
 ./itosda-google-chrome.sh &
 sleep 2

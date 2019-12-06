@@ -1,2 +1,2 @@
 . openContext iRobbie
-google-chrome --user-data-dir=~/context/iRobbie
+useContextBrowser --user-data-dir=~/context/iRobbie

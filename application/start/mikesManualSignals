@@ -1,2 +1,2 @@
 . openContext mikesManualSignals
-google-chrome --user-data-dir=~/context/mikesManualSignals
+useContextBrowser --user-data-dir=~/context/mikesManualSignals

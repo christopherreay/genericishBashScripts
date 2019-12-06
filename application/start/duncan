@@ -1,2 +1,2 @@
 . openContext duncan 
-google-chrome --user-data-dir=~/browserProfiles/duncan
+useContextBrowser --user-data-dir=~/browserProfiles/duncan

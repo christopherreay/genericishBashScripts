@@ -1,0 +1,2 @@
+. openContext 20cogs
+useContextBrowser --user-data-dir=~/browserProfiles/20cogs

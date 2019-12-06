@@ -1,0 +1,2 @@
+. openContext pippi
+useContextBrowser --user-data-dir=~/browserProfiles/pippi

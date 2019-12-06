@@ -1,2 +1,2 @@
 . openContext wuFei
-google-chrome --user-data-dir=~/browserProfiles/wuFei
+useContextBrowser --user-data-dir=~/browserProfiles/wuFei

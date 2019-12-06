@@ -1,5 +1,10 @@
 applicationDir=~/Scripts/application/start
 
 echo ". openContext $1" > $applicationDir/$1
-echo "google-chrome --user-data-dir=~/browserProfiles/$1" >> $applicationDir/$1
+echo "useContextBrowser --user-data-dir=~/browserProfiles/$1" >> $applicationDir/$1
 chmod +x $applicationDir/$1 
+
+#cp -r ~/browserProfiles/defaultBrowserSetup/chromium ~/browserProfiles/$1 
+
+mkdir -p ~/browserProfiles/$1/chromium/~/browserProfiles/$1
+cp -r ~/browserProfiles/defaultBrowserSetup/chromium/~/browserProfiles/erinTaiwan/* ~/browserProfiles/$1/chromium/~/browserProfiles/$1

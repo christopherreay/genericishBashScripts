@@ -1,2 +1,2 @@
 . openContext thisEquals.holochain
-google-chrome --user-data-dir=$HOME/browserProfiles/thisEquals.holochain
+useContextBrowser --user-data-dir=$HOME/browserProfiles/thisEquals.holochain

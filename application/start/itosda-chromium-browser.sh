@@ -1,2 +1,2 @@
 . openContext itosda
-google-chrome --user-data-dir=.
+useContextBrowser --user-data-dir=.

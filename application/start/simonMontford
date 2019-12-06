@@ -1,2 +1,2 @@
 . openContext simonMontford 
-google-chrome --user-data-dir=~/browserProfiles/simonMontford
+useContextBrowser --user-data-dir=~/browserProfiles/simonMontford

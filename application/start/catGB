@@ -1,2 +1,2 @@
 . openContext catGB
-google-chrome --user-data-dir=~/browserProfiles/catGB
+useContextBrowser --user-data-dir=~/browserProfiles/catGB

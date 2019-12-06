@@ -1,2 +1,2 @@
 . openContext nichlasPerrin 
-google-chrome --user-data-dir=~/browserProfiles/nicholasPerrin
+useContextBrowser --user-data-dir=~/browserProfiles/nicholasPerrin

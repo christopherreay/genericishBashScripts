@@ -1,2 +1,2 @@
 . openContext davidBovill
-google-chrome --user-data-dir=~/browserProfiles/davidBovill
+useContextBrowser --user-data-dir=~/browserProfiles/davidBovill

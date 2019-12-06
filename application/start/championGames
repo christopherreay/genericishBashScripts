@@ -1,2 +1,2 @@
 . openContext championGames
-google-chrome --user-data-dir=~/context/championGames
+useContextBrowser --user-data-dir=~/context/championGames

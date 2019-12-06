@@ -1,2 +1,2 @@
 . openContext eijah
-google-chrome --user-data-dir=~/browserProfiles/eijah
+useContextBrowser --user-data-dir=~/browserProfiles/eijah

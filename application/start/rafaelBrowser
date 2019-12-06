@@ -1,0 +1,2 @@
+. openContext rafaelBrowser
+useContextBrowser --user-data-dir=~/browserProfiles/rafaelBrowser

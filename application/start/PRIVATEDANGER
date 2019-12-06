@@ -1,2 +1,2 @@
 . openContext PRIVATEDANGER
-google-chrome --user-data-dir=~/browserProfiles/PRIVATEDANGER
+useContextBrowser --user-data-dir=~/browserProfiles/PRIVATEDANGER

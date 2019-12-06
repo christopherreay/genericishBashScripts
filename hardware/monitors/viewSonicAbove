@@ -5,9 +5,6 @@ xrandr --addmode CRT1 1920x1080
 xrandr --addmode VGA1 1920x1080
 xrandr --addmode VGA-1 1920x1080
 
-xrandr --addmode VGA-0 1920x1080
-xrandr --addmode CRT1 1920x1080
-xrandr --addmode VGA1 1920x1080
 
 
 xrandr --output VGA-0 --mode 1920x1080 --above LVDS

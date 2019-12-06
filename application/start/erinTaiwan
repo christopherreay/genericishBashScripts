@@ -1,0 +1,2 @@
+. openContext erinTaiwan
+useContextBrowser --user-data-dir=~/browserProfiles/erinTaiwan

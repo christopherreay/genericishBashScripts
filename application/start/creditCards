@@ -1,0 +1,2 @@
+. openContext creditCards
+useContextBrowser --user-data-dir=~/browserProfiles/creditCards

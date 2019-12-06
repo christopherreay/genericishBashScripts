@@ -1,3 +1,0 @@
-. openContext personal
-
-google-chrome --user-data-dir=$HOME/browserProfiles/personal/ 

@@ -1,2 +1,2 @@
 . openContext nowwebsites
-google-chrome --user-data-dir=.
+useContextBrowser --user-data-dir=.

@@ -1,2 +1,2 @@
 cd ~/context/reality/communication/browser/tomala/
-google-chrome --user-data-dir=.
+useContextBrowser --user-data-dir=.

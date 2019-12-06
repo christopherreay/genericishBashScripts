@@ -5,4 +5,8 @@ Host 5.101.107.169
   User 			germany
   IdentityFile		/torrent/.ssh/germanySSHKey
 
-
+# ~/.ssh/config
+Host github.com-christopherreay
+    Hostname github.com
+    User git
+    IdentityFile ~/.ssh/github.christopherreay.ssh.id_rsa

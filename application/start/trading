@@ -1,2 +1,2 @@
 . openContext trading
-google-chrome --user-data-dir=~/context/trading
+useContextBrowser --user-data-dir=~/context/trading

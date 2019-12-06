@@ -1,2 +1,2 @@
 . openContext gayle
-google-chrome --user-data-dir=~/browserProfiles/gayle
+useContextBrowser --user-data-dir=~/browserProfiles/gayle

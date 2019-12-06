@@ -1,0 +1,33 @@
+state="initialising"
+
+function waitingForWeb {
+  state="waitingForWeb"
+  sudo openpyn -x
+  sleep 3
+  while [ state == "waitingForWeb" ] ; do
+    sleep 1
+    ping -c 1 christopherreay.com && state="startOpenPyn"
+  done
+}
+
+function startOpenPyn {
+  sudo openpyn uk -f -d
+  state="openPynStarted"
+}
+
+function checkingWebIsUp {
+  state="checkingWebIsUp"
+  while [ state == "checkingWebIsUp" ] ; do
+    sleep 1
+    ping -c 1 christopherreay.com || state="webIsDown"
+  done
+}
+
+while true; do
+
+ waitingForWeb
+ startOpenPyn
+ checkingWebIsUp
+
+done
+

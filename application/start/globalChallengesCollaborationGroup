@@ -1,0 +1,2 @@
+. openContext globalChallengesCollaborationGroup
+useContextBrowser --user-data-dir=~/browserProfiles/globalChallengesCollaborationGroup

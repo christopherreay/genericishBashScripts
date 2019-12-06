@@ -1,2 +1,2 @@
 . openContext freeFreeCrowdfunding 
-google-chrome --user-data-dir=~/context/freeFreeCrowdfunding
+useContextBrowser --user-data-dir=~/context/freeFreeCrowdfunding

@@ -1,0 +1,2 @@
+. openContext alexander
+useContextBrowser --user-data-dir=~/browserProfiles/alexander

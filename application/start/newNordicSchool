@@ -1,0 +1,2 @@
+. openContext newNordicSchool
+useContextBrowser --user-data-dir=~/browserProfiles/newNordicSchool

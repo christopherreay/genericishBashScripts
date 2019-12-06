@@ -1,2 +1,2 @@
 . openContext erinMcG 
-google-chrome --user-data-dir=~/browserProfiles/erinMcG
+useContextBrowser --user-data-dir=~/browserProfiles/erinMcG

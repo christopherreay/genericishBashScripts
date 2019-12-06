@@ -1,2 +1,2 @@
 . openContext bristolSolidityGroup 
-google-chrome --user-data-dir=~/browserProfiles/bristolSolidityGroup
+useContextBrowser --user-data-dir=~/browserProfiles/bristolSolidityGroup

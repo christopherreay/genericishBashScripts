@@ -1,0 +1,7 @@
+while true; do
+  pactl set-card-profile bluez_card.0C_A6_94_3D_A8_35 off
+  pactl set-card-profile bluez_card.0C_A6_94_3D_A8_35 a2dp_sink
+  currentDate=`date`
+  echo -e "\r$currentDate\r"
+  sleep 90s
+done
