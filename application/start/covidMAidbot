@@ -1,0 +1,2 @@
+. openContext covidMAidbot
+useContextBrowser --user-data-dir=~/browserProfiles/covidMAidbot

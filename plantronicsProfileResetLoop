@@ -1,6 +1,6 @@
 while true; do
   pactl set-card-profile bluez_card.E4_22_A5_D2_1F_15 off
-  pactl set-card-profile bluez_card.E4_22_A5_D2_1F_15 a2dp_sink
+  pactl set-card-profile bluez_card.E4_22_A5_D2_1F_15 a2dp_sink_aptx
   currentDate=`date`
   echo -e "\r$currentDate\r"
   sleep 90s

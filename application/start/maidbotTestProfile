@@ -1,0 +1,2 @@
+. openContext maidbotTestProfile
+useContextBrowser --user-data-dir=~/browserProfiles/maidbotTestProfile

@@ -1,0 +1,2 @@
+. openContext vaneese
+useContextBrowser --user-data-dir=~/browserProfiles/vaneese

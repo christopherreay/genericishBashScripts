@@ -1,0 +1,2 @@
+. openContext holoMap
+useContextBrowser --user-data-dir=~/browserProfiles/holoMap

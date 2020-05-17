@@ -1,1 +1,8 @@
-echo $1 > /sys/class/backlight/intel_backlight/brightness 
+if [[ -z "$1" ]] 
+then
+  newBrightnessLevel=852
+  cat /sys/class/backlight/intel_backlight/brightness > /home/christopher/Scripts/_v_state/backlight
+else
+  newBrightnessLevel=$1
+fi
+echo $newBrightnessLevel > /sys/class/backlight/intel_backlight/brightness 

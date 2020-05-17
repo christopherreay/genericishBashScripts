@@ -3,3 +3,4 @@ mkdir -p ~/browserProfiles/$1/chromium
 
 cd ~/browserProfiles/$1/chromium
 
+touch $FILE

@@ -1,0 +1,2 @@
+. openContext lawrencePWoolhouse
+useContextBrowser --user-data-dir=~/browserProfiles/lawrencePWoolhouse

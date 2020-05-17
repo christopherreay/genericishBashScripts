@@ -1,0 +1,2 @@
+. openContext openCreditNetwork
+useContextBrowser --user-data-dir=~/browserProfiles/openCreditNetwork

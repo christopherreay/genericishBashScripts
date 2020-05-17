@@ -1,0 +1,2 @@
+. openContext biscuit
+useContextBrowser --user-data-dir=~/browserProfiles/biscuit

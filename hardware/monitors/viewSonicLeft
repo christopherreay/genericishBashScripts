@@ -1,16 +1,23 @@
 xrandr --newmode "1920x1080"  172.80  1920 2040 2248 2576  1080 1081 1084 1118  -HSync +Vsync
 
-xrandr --addmode VGA-0 1920x1080
-xrandr --addmode CRT1 1920x1080
-xrandr --addmode VGA1 1920x1080
-xrandr --addmode VGA-1 1920x1080
-
-xrandr --addmode VGA-0 1920x1080
-xrandr --addmode CRT1 1920x1080
-xrandr --addmode VGA1 1920x1080
+xrandr --addmode DP-2 1920x1080
+xrandr --output DP-2 --mode 1920x1080 --left-of eDP-1
 
 
-xrandr --output VGA-0 --mode 1920x1080 --left-of LVDS
-xrandr --output CRT1 --mode 1920x1080 --left-of LVDS
-xrandr --output VGA1 --mode 1920x1080 --left-of LVDS1
-xrandr --output VGA-1 --mode 1920x1080 --left-of LVDS-1
+
+#xrandr --addmode VGA-0 1920x1080
+##xrandr --addmode CRT1 1920x1080
+#xrandr --addmode VGA1 1920x1080
+#xrandr --addmode VGA-1 1920x1080
+#
+#xrandr --addmode VGA-0 1920x1080
+#xrandr --addmode CRT1 1920x1080
+#xrandr --addmode VGA1 1920x1080
+
+
+
+
+#xrandr --output VGA-0 --mode 1920x1080 --left-of LVDS
+#xrandr --output CRT1 --mode 1920x1080 --left-of LVDS
+#xrandr --output VGA1 --mode 1920x1080 --left-of LVDS1
+#xrandr --output VGA-1 --mode 1920x1080 --left-of LVDS-1

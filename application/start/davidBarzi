@@ -1,0 +1,2 @@
+. openContext davidBarzi
+useContextBrowser --user-data-dir=~/browserProfiles/davidBarzi

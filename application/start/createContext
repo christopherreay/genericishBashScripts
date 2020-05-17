@@ -7,4 +7,4 @@ chmod +x $applicationDir/$1
 #cp -r ~/browserProfiles/defaultBrowserSetup/chromium ~/browserProfiles/$1 
 
 mkdir -p ~/browserProfiles/$1/chromium/~/browserProfiles/$1
-cp -r ~/browserProfiles/defaultBrowserSetup/chromium/~/browserProfiles/erinTaiwan/* ~/browserProfiles/$1/chromium/~/browserProfiles/$1
+cp -r ~/browserProfiles/defaultBrowserSetup/chromium/~/browserProfiles/defaultBrowserSetup/* ~/browserProfiles/$1/chromium/~/browserProfiles/$1

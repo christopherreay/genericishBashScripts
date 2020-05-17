@@ -1,0 +1,52 @@
+if [[ -z $1 ]]; then
+  countryCode="uk" 
+else
+  countryCode=$1
+fi
+
+cd /home/christopher/context/reality/communications/machine/nordVPN
+
+pkill -SIGTERM -f 'openvpn --config $countryCode.* openVPNLoop'
+openvpn --config $countryCode* --auth-user-pass authUserPass --daemon openVPNLoop
+
+sleep 5
+
+percentRegex="[0-9]+%"
+numberRegex="[0-9]+"
+
+pingPercentTotal=0
+pingCycleCounter=0
+
+while true; do
+  pingOutput=`ping -q -c 8 -w 12 -n 8.8.8.8`
+  #echo $pingOutput
+  pingOutput=`echo $pingOutput | grep -oEi $percentRegex`
+  #pingPercentNumber=`echo $pingOutput | grep -oEi $numberRegex`
+  #pingPercentTotal= $(( $pingPercentTotal + $pingPercentNumber ))
+  #pingCycleCounter= $(( $pingCycleCounter + 1 ))
+  #printPingPercentToPrint= $(( ( $pingPercentTotal / ( $pingCycleCounter * 100 ) ) * 100 ))
+
+  echo -ne `date`: "lost packets: $pingOutput   total lost packets: $printPingPercentToPrint  \r"
+  
+  if [ $pingOutput == '100%' ] ; then
+
+      pkill -SIGTERM -f 'openvpn --config $countryCode.* openVPNLoop'
+      
+      loop=true
+      counter=0
+      while $loop; do
+        ((counter+=1))
+        echo -ne "waiting for network connection: $counter\r"
+        ping -c 1 -w 1 -q -n 8.8.8.8 >/dev/null 2>&1 && loop=false
+        sleep 1
+      done 
+      echo "network reconnected" 
+      openvpn --config $countryCode* --auth-user-pass authUserPass --daemon openVPNLoop
+      pingPercentTotal=0
+      pingCycleCounter=0
+      pingPercentTotal=0
+      pingCycleCounter=0
+      
+      sleep 20
+  fi
+done

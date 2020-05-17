@@ -1,0 +1,2 @@
+. openContext scottishIndependence
+useContextBrowser --user-data-dir=~/browserProfiles/scottishIndependence

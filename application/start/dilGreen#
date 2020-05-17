@@ -1,0 +1,2 @@
+. openContext dilGreen#
+useContextBrowser --user-data-dir=~/browserProfiles/dilGreen#
