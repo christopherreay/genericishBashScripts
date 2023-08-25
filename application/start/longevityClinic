@@ -1,2 +1,2 @@
-. openContext jayDayZee
-useContextBrowser --user-data-dir=~/browserProfiles/jayDayZee
+. openContext longevityClinic
+useContextBrowser --user-data-dir=~/browserProfiles/longevityClinic

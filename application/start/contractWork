@@ -1,0 +1,2 @@
+. openContext contractWork
+useContextBrowser --user-data-dir=~/browserProfiles/contractWork

@@ -1,33 +1,100 @@
-state="initialising"
+#!/bin/bash
+
+while getopts ":s:c:" opt; do
+  case ${opt} in
+    s ) 
+      serverName="-s ${OPTARG}"
+      ;;
+    c )
+      countryName=${OPTARG}
+      serverName="-s `/home/christopher/Scripts/nordvpn.recommended.byCountry $countryName`"
+      ;;
+    \? ) echo "Usage: cmd [-s] [-c]"
+      ;;
+  esac
+done
+
+
+if [ -z $serverName ]
+then 
+	serverName="-s `/home/christopher/Scripts/nordvpn.recommended.byCountry`"
+fi
+
+function changeState {
+	state=$1
+	echo '{ "date": "'$(date)'", "openPynLoop": { "serverName": "'$serverName'", "state": "'$state'" } }'
+}
+
+changeState "initialising"
 
 function waitingForWeb {
-  state="waitingForWeb"
+  changeState "waitingForWeb"
+
   sudo openpyn -x
   sleep 3
-  while [ state == "waitingForWeb" ] ; do
+  while [[ $state = "waitingForWeb" ]] ; do
     sleep 1
-    ping -c 1 christopherreay.com && state="startOpenPyn"
+    (ping -c 1 www.google.com)  && changeState "startOpenPyn"
   done
 }
 
 function startOpenPyn {
-  sudo openpyn uk -f -d
-  state="openPynStarted"
+  #serverName="-s `/home/christopher/Scripts/nordvpn.recommended.germany`"
+
+  openpyn $serverName --tcp --double -f &
+  changeState "openPynStarted"
 }
 
+percentRegex="[.0-9]+%"
+numberRegex="[0-9]+"
+
+ #echo $pingOutput
+  
 function checkingWebIsUp {
-  state="checkingWebIsUp"
-  while [ state == "checkingWebIsUp" ] ; do
+  changeState "checkingWebIsUp"
+  while [ "$state" == "checkingWebIsUp" ] ; do
     sleep 1
-    ping -c 1 christopherreay.com || state="webIsDown"
+    pingOutput=`ping -q -c 16 -w 24 www.google.com`
+    pingExitCode=$?
+    
+    echo "before regex: $pingOutput"
+    packetLoss=`echo $pingOutput | grep -oEi $percentRegex`
+    echo "ping packet loss: $packetLoss"
+
+    if [ $pingExitCode -eq 2 ] || [ "$packetLoss" == '100%' ]; then
+      echo pingExitCode=$pingExitCode
+      changeState "webIsDown"
+    else
+      changeState "checkingWebIsUp"
+    fi
   done
 }
 
-while true; do
 
- waitingForWeb
- startOpenPyn
- checkingWebIsUp
+
+#clean exit
+function ctrl_c() {
+    echo "CTRL+C pressed. Exiting VPN..."
+    sudo openpyn -x
+    exit 1
+}
+trap ctrl_c INT
+
+while true; do
+    waitingForWeb
+    startOpenPyn
+
+    last_attempt=$(date +%s)
+    checkingWebIsUp
+
+    current_time=$(date +%s)
+    elapsed_time=$((current_time - last_attempt))
+
+    # If reconnection was attempted within a short interval (e.g., 10 seconds)
+    if [ "$elapsed_time" -lt 60 ]; then
+        echo "Quick reconnection attempts detected. Falling back for 60 seconds."
+        sleep 60
+    fi
 
 done
 

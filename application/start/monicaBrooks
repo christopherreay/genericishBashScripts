@@ -1,0 +1,2 @@
+. openContext monicaBrooks
+useContextBrowser --user-data-dir=~/browserProfiles/monicaBrooks

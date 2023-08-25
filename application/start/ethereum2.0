@@ -1,0 +1,2 @@
+. openContext ethereum2.0
+useContextBrowser --user-data-dir=~/browserProfiles/ethereum2.0

@@ -1,0 +1,1 @@
+ssh $1@learningjourney.christopherreay.com $2 $3 $4

@@ -1,0 +1,2 @@
+. openContext productionGranoite
+useContextBrowser --user-data-dir=~/browserProfiles/productionGranoite

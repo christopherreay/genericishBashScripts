@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Set your personal access token here
+TOKEN="$1"
+
+# Loop through each issue
+cat laloAIbot.issues.json | jq -rc '.[] | {number, comments_url}' | while read -r issue; do
+
+    # Extract issue number and comments_url from the current issue
+    number=$(echo "$issue" | jq -r '.number')
+    comments_url=$(echo "$issue" | jq -r '.comments_url')
+
+    # Fetch comments for the current issue
+    comments=$(curl -H "Authorization: token $TOKEN" "$comments_url")
+
+    # Save comments to a JSON file named based on the issue number
+    echo "$comments" > "comments_for_issue_$number.json"
+
+done
+

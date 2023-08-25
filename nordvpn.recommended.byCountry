@@ -1,0 +1,13 @@
+countryName=$1
+
+if [ -z $countryName ]
+then
+  countryName="Germany"
+  countryID=81
+else
+  countryID=`curl --silent "https://api.nordvpn.com/v1/servers/countries" | jq --raw-output 'map(del(.cities)) | .[] | select(.name == '\"$countryName\"') | .id'`
+fi
+echo "{ \"countryName\": \"$countryName\", \"countryID\": $countryID }"  >&2
+
+
+curl --silent https://nordvpn.com/wp-admin/admin-ajax.php -G -d "action=servers_recommendations&filters={%22country_id%22:$countryID}" | jq .[0].hostname -r | sed 's/\.nordvpn\.com$//' | cut -d'.' -f1

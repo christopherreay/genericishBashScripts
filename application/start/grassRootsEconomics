@@ -1,0 +1,2 @@
+. openContext grassRootsEconomics
+useContextBrowser --user-data-dir=~/browserProfiles/grassRootsEconomics

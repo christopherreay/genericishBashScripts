@@ -1,0 +1,2 @@
+. openContext victoriaTink
+useContextBrowser --user-data-dir=~/browserProfiles/victoriaTink

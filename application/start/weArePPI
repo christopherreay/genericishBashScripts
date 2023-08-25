@@ -1,0 +1,2 @@
+. openContext weArePPI
+useContextBrowser --user-data-dir=~/browserProfiles/weArePPI

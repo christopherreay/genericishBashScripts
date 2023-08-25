@@ -1,0 +1,2 @@
+. openContext auroraOnCelo
+useContextBrowser --user-data-dir=~/browserProfiles/auroraOnCelo

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+URL=$1
+START_VIDEO=${2:-1}
+HEIGHT=${3:-1080}
+
+# Check if the playlist URL is provided
+if [ -z "$URL" ]; then
+    echo "Usage: $0 <PLAYLIST_URL> [START_FROM_VIDEO_NUMBER] [MAX_HEIGHT]"
+    exit 1
+fi
+
+yt-dlp -f "bestvideo[height<=$HEIGHT][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --playlist-start "$START_VIDEO" "$URL"
+

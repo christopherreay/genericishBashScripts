@@ -1,0 +1,2 @@
+. openContext shahed
+useContextBrowser --user-data-dir=~/browserProfiles/shahed

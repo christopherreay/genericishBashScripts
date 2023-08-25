@@ -1,0 +1,2 @@
+. openContext valHaenel
+useContextBrowser --user-data-dir=~/browserProfiles/valHaenel

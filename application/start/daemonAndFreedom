@@ -1,0 +1,2 @@
+. openContext daemonAndFreedom
+useContextBrowser --user-data-dir=~/browserProfiles/daemonAndFreedom

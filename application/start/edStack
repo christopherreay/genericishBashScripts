@@ -1,0 +1,2 @@
+. openContext edStack
+useContextBrowser --user-data-dir=~/browserProfiles/edStack

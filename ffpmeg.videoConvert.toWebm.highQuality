@@ -1,0 +1,1 @@
+ffmpeg  -i "$1" -b:v 0  -crf 10  -pass 1  -an -f webm /dev/null && ffmpeg -i "$1" -b:v 0 -crf 10 -pass 2 -c:a libvorbis "$1".`date +"%Y%m%d.%H%M%S"`.webm

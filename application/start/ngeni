@@ -1,0 +1,2 @@
+. openContext ngeni
+useContextBrowser --user-data-dir=~/browserProfiles/ngeni

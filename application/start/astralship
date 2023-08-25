@@ -1,0 +1,2 @@
+. openContext astralship
+useContextBrowser --user-data-dir=~/browserProfiles/astralship

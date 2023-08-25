@@ -1,0 +1,1 @@
+ssh -L 44445:localhost:9229 -L 44446:localhost:9230  $1@learningjourney.christopherreay.com -o LOGLEVEL=ERROR

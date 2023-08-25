@@ -1,0 +1,2 @@
+. openContext willRuddick
+useContextBrowser --user-data-dir=~/browserProfiles/willRuddick

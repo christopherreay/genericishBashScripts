@@ -1,0 +1,1 @@
+ssh $1@dev.gre.christopherreay.com $2 $3 $4

@@ -1,0 +1,2 @@
+. openContext jaredPigKrensel
+useContextBrowser --user-data-dir=~/browserProfiles/jaredPigKrensel

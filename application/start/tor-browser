@@ -1,0 +1,1 @@
+cd ~/context_linuxLocal/reality/communications/browser/tor-browser && ./start-tor-browser.desktop --verbose

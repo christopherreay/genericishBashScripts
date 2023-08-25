@@ -1,0 +1,21 @@
+internalPath="chromium/~/browserProfiles/alexander/Default"
+
+cachDirs=( Cache "Code Cache" GPUCache )
+
+testDir=( anders )
+
+for dir in ${anders}
+do
+
+targetPath="./$dir/chromium/~/browserProfiles/$dir/Default"
+
+  for leafDir in "${cachDirs[@]}"
+  do
+    deleteThisDir="$targetPath"/"$leafDir"
+    #[ -d "$dir" ] && rm -r "$deleteThisDir/*"
+    echo clearing directory: $deleteThisDir
+    cd ~/browserProfiles/"$deleteThisDir"
+    ls
+    rm * -r
+  done
+done

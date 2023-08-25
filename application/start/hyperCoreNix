@@ -1,0 +1,2 @@
+. openContext hyperCoreNix
+useContextBrowser --user-data-dir=~/browserProfiles/hyperCoreNix

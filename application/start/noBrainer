@@ -1,0 +1,2 @@
+. openContext noBrainer
+useContextBrowser --user-data-dir=~/browserProfiles/noBrainer

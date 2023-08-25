@@ -1,0 +1,2 @@
+. openContext nganie
+useContextBrowser --user-data-dir=~/browserProfiles/nganie

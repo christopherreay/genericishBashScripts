@@ -1,0 +1,2 @@
+. openContext choco4Peace
+useContextBrowser --user-data-dir=~/browserProfiles/choco4Peace

@@ -1,0 +1,4 @@
+ffmpeg -i "$1"   -f image2 -loop 1 -i "$2" -r 15 -s 1280x720 \
+-c:v libx264 -crf 18 -tune stillimage -preset medium \
+-shortest -c:a libvorbis "$3"
+

@@ -1,2 +1,2 @@
 . openContext personalBrowser
-useContextBrowser --user-data-dir=~/browserProfiles/personalBrowser
+google-chrome-stable --user-data-dir=~/browserProfiles/personalBrowser

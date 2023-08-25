@@ -1,0 +1,2 @@
+. openContext 2gfe.core
+useContextBrowser --user-data-dir=~/browserProfiles/2gfe.core

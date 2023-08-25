@@ -1,0 +1,2 @@
+. openContext marcelMoliner
+useContextBrowser --user-data-dir=~/browserProfiles/marcelMoliner
