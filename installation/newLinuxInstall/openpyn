@@ -1,0 +1,6 @@
+sudo apt-get install pip jq
+
+git clone --branch test https://github.com/jotyGill/openpyn-nordvpn.git
+cd openpyn-nordvpn/
+sudo python3 -m pip install --upgrade .
+

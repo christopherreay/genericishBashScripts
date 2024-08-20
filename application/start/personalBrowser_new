@@ -1,2 +1,0 @@
-. openContext personalBrowser_new
-useContextBrowser --user-data-dir=~/browserProfiles/personalBrowser_new

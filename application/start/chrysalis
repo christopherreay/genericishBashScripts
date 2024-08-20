@@ -1,0 +1,2 @@
+. openContext chrysalis
+useContextBrowser --user-data-dir=~/browserProfiles/chrysalis

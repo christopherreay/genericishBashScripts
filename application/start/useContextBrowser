@@ -1,3 +1,4 @@
-google-chrome-stable $1 $2 $3 $4 $5 $6 $7
-
+brave-browser-beta $1 $2 $3 $4 $5 $6 $7
+#google-chrome-stable $1 $2 $3 $4 $5 $6 $7
+#google-chrome-beta $1 $2 $3 $5 $5 $6 $7
 #chromium-browser $1 $2 $3 $4 $5 $6 $7

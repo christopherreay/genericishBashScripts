@@ -1,2 +1,2 @@
-. openContext jamesClark 
+. openContext jamesClark
 useContextBrowser --user-data-dir=~/browserProfiles/jamesClark

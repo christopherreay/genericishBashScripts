@@ -1,0 +1,2 @@
+. openContext causaCompartida
+useContextBrowser --user-data-dir=~/browserProfiles/causaCompartida

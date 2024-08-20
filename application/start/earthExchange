@@ -1,0 +1,2 @@
+. openContext earthExchange
+useContextBrowser --user-data-dir=~/browserProfiles/earthExchange

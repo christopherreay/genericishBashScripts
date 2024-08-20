@@ -1,0 +1,2 @@
+. openContext promax.digital
+useContextBrowser --user-data-dir=~/browserProfiles/promax.digital

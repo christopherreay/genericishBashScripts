@@ -1,0 +1,2 @@
+. openContext delNorte.perulapia
+useContextBrowser --user-data-dir=~/browserProfiles/delNorte.perulapia

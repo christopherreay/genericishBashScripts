@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 while getopts ":s:c:" opt; do
   case ${opt} in
@@ -22,7 +22,9 @@ fi
 
 function changeState {
 	state=$1
-	echo '{ "date": "'$(date)'", "openPynLoop": { "serverName": "'$serverName'", "state": "'$state'" } }'
+	echo -e '\033[K{ "date": "'$(date)'", "openPynLoop": { "serverName": "'$serverName'", "state": "'$state'" } }'
+	echo -e "\r"
+
 }
 
 changeState "initialising"
@@ -41,7 +43,7 @@ function waitingForWeb {
 function startOpenPyn {
   #serverName="-s `/home/christopher/Scripts/nordvpn.recommended.germany`"
 
-  openpyn $serverName --tcp --double -f &
+  sudo openpyn $serverName --tcp --double -f -d
   changeState "openPynStarted"
 }
 
@@ -57,12 +59,12 @@ function checkingWebIsUp {
     pingOutput=`ping -q -c 16 -w 24 www.google.com`
     pingExitCode=$?
     
-    echo "before regex: $pingOutput"
+    echo -e "\033[Kbefore regex: $pingOutput\r"
     packetLoss=`echo $pingOutput | grep -oEi $percentRegex`
-    echo "ping packet loss: $packetLoss"
+    echo -e "\033[Kping packet loss: $packetLoss\r"
 
     if [ $pingExitCode -eq 2 ] || [ "$packetLoss" == '100%' ]; then
-      echo pingExitCode=$pingExitCode
+      echo  pingExitCode=$pingExitCode
       changeState "webIsDown"
     else
       changeState "checkingWebIsUp"

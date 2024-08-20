@@ -1,0 +1,2 @@
+. openContext aoMini
+useContextBrowser --user-data-dir=~/browserProfiles/aoMini

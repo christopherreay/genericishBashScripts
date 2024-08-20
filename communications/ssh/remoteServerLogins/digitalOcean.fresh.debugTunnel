@@ -1,0 +1,4 @@
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/github.christopherreay_at_gmail.com
+
+ssh -A -L 5858:localhost:5858 -L 44440:localhost:9228 -L 44441:localhost:9229 -L 44442:localhost:9230 -L 44443:localhost:9231  $1@fresh.christopherreay.com -o LOGLEVEL=ERROR

@@ -1,0 +1,2 @@
+. openContext delNorte
+useContextBrowser --user-data-dir=~/browserProfiles/delNorte

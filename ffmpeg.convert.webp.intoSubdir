@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Create a directory for the converted images if it doesn't exist
+mkdir -p converted_images
+
+# Initialize counter
+counter=1
+
+# Loop through all webp files in the current directory
+for file in *.webp; do
+  # Convert webp to jpg and rename with four-digit numbers
+  convert "$file" "converted_images/$(printf "%04d" $counter).jpg"
+  
+  # Increment counter
+  counter=$((counter + 1))
+done
+
+echo "Conversion complete. Files are saved in the 'converted_images' directory."
+

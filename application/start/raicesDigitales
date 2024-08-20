@@ -1,0 +1,2 @@
+. openContext raicesDigitales
+useContextBrowser --user-data-dir=~/browserProfiles/raicesDigitales

@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Assign command line arguments to variables
+originalName=$1
+newName=$2
+
+# Define base directories
+contextDir=~/context
+browserProfilesDir=~/browserProfiles
+
+# 3. Check if ~/context/newName already exists
+if [ -d "$contextDir/$newName" ]; then
+    echo "The directory $contextDir/$newName already exists. Exiting."
+    exit 1
+fi
+
+# 4. Move ~/context/originalName to ~/context/newName
+mv "$contextDir/$originalName" "$contextDir/$newName"
+if [ $? -ne 0 ]; then
+    echo "Failed to move $contextDir/$originalName to $contextDir/$newName"
+    exit 2
+fi
+
+# 5. Move the browserProfile for the context
+# Correcting the command from 'mkdir' to 'mv' and fixing the paths
+mv "$browserProfilesDir/$originalName" "$browserProfilesDir/$newName"
+mv "$browserProfilesDir/$newName/chromium/~/browserProfiles/$originalName" "$browserProfilesDir/$newName/chromium/~/browserProfiles/$newName"
+
+if [ $? -ne 0 ]; then
+    echo "Failed to move browser profile from $browserProfilesDir/$originalName to $browserProfilesDir/$newName"
+    exit 3
+fi
+
+echo "Context and browser profile successfully moved."
+

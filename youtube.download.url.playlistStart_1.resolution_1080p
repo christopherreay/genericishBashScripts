@@ -10,5 +10,5 @@ if [ -z "$URL" ]; then
     exit 1
 fi
 
-yt-dlp -f "bestvideo[height<=$HEIGHT][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --playlist-start "$START_VIDEO" "$URL"
+$HOME/.local/bin/yt-dlp -f "bestvideo[height<=$HEIGHT][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --playlist-start "$START_VIDEO" -o "%(playlist)s-%(playlist_index)s - %(title)s.%(ext)s"  "$URL"
 

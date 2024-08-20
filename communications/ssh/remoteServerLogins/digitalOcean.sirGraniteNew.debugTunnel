@@ -1,0 +1,1 @@
+ssh -A -L 44440:locationhost:9228 -L 9229:localhost:9229 -L 44442:localhost:9230 -L 44443:localhost:9231  $1@newdev.christopherreay.com -o LOGLEVEL=ERROR

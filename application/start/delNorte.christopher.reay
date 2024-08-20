@@ -1,0 +1,2 @@
+. openContext delNorte.christopher.reay
+useContextBrowser --user-data-dir=~/browserProfiles/delNorte.christopher.reay

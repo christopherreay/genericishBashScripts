@@ -1,5 +1,0 @@
-sudo apt-add-repository ppa:spring/ppa
-sudo apt-get update
-sudo apt-get install spring mono-complete xprintidle p7zip wget libsdl2-2.0-0
-wget http://zero-k.info/lobby/Zero-K.exe
-mono Zero-K.exe

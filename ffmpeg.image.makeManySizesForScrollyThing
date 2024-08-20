@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# Function to crop image using ffmpeg
+ffmpeg_crop_image() {
+    input_image="$1"
+    output_image="$2"
+    width="$3"
+
+
+    # Get input image dimensions
+    dimensions=$(ffmpeg -i "$input_image" 2>&1 | grep -oP 'Stream .* Video.* \K[0-9]+x[0-9]+')
+    width_original=$(echo "$dimensions" | cut -d'x' -f1)
+    height_original=$(echo "$dimensions" | cut -d'x' -f2)
+
+    # Calculate crop dimensions and offset to center
+    crop_height="$height_original"
+    crop_width="$width"
+    offset_x=$((($width_original - $crop_width) / 2))
+
+    # Crop command and output to WebP format
+    ffmpeg -i "$input_image" -vf "crop=$crop_width:$crop_height:$offset_x:0" -c:v libwebp -quality 80 "$output_image"
+}
+
+# Input image file
+input_image="$1"
+
+# Output directory
+output_directory="$2/"
+
+# Widths in pixels
+widths=(400 450 500 600 900 1200)
+
+# Loop through each width and crop the image
+for width in "${widths[@]}"; do
+    output_image="${output_directory}${input_image}_${width}.webp"
+    ffmpeg_crop_image "$input_image" "$output_image" "$width"
+done
+

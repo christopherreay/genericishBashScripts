@@ -3,4 +3,3 @@ sudo apt-get install git
 git config --global user.email christopherreay@gmail.com
 git config --global user.name christopherreay
 
-git config credential.helper 'cache --timeout=9999999'

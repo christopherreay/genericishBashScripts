@@ -1,0 +1,2 @@
+. openContext testBrave
+useContextBrowser --user-data-dir=~/browserProfiles/testBrave
