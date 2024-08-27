@@ -1,0 +1,2 @@
+. openContext DANGER_noCORSTesting_theDebtBox
+useContextBrowser --user-data-dir=~/browserProfiles/DANGER_noCORSTesting_theDebtBox --disable-web-security
