@@ -1,0 +1,2 @@
+. openContext grantHealthProject
+useContextBrowser --user-data-dir=~/browserProfiles/grantHealthProject

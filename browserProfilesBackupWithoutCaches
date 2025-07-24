@@ -1,0 +1,6 @@
+tar --exclude='*/Cache/*' \
+    --exclude='*/GPUCache/*' \
+    --exclude='*/Code Cache/*' \
+    --exclude='*/Service Worker/CacheStorage/*' \
+    --exclude='*/File System/*' \
+    -czf "$1" $2

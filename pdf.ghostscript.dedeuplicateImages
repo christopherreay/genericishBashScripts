@@ -1,0 +1,26 @@
+#!/bin/bash
+for file in *.pdf; do
+    #gs -sDEVICE=pdfwrite -dDetectDuplicateImages=true -sOutputFile="opt_$file" "$file"
+    #gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/prepress \
+    #-dNOPAUSE -dQUIET -dBATCH -sOutputFile="opt_$file.pdf" "$file"
+    gs -sDEVICE=pdfwrite \
+   -dDetectDuplicateImages=true \
+   -dEmbedAllFonts=true \
+   -dSubsetFonts=true \
+   -dAutoFilterColorImages=false \
+   -dAutoFilterGrayImages=false \
+   -dColorImageFilter=/FlateEncode \
+   -dGrayImageFilter=/FlateEncode \
+   -dDownsampleColorImages=false \
+   -dDownsampleGrayImages=false \
+   -dDownsampleMonoImages=false \
+   -dColorImageResolution=600 \
+   -dGrayImageResolution=600 \
+   -dMonoImageResolution=1200 \
+   -dMaxSubsetPct=100 \
+   -dNOPAUSE \
+   -dQUIET \
+   -dBATCH \
+   -sOutputFile="opt_$file.pdf" \
+   "$file"
+done

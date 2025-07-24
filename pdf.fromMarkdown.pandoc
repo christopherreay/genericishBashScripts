@@ -1,0 +1,348 @@
+#!/bin/bash
+
+# markdown-to-pdf-generator.sh
+# High-quality PDF generation from Markdown using Pandoc + LaTeX
+
+set -euo pipefail
+
+# Configuration
+DEFAULT_TEMPLATE="custom"
+DEFAULT_ENGINE="xelatex"
+DEFAULT_MARGIN="1in"
+DEFAULT_FONT_SIZE="11pt"
+DEFAULT_LINE_SPACING="1.2"
+
+# Parse command line arguments
+INPUT_FILE=""
+OUTPUT_FILE=""
+TEMPLATE="$DEFAULT_TEMPLATE"
+ENGINE="$DEFAULT_ENGINE"
+MARGIN="$DEFAULT_MARGIN"
+FONT_SIZE="$DEFAULT_FONT_SIZE"
+LINE_SPACING="$DEFAULT_LINE_SPACING"
+CUSTOM_CSS=""
+METADATA_FILE=""
+BIBLIOGRAPHY=""
+CSL_STYLE=""
+VERBOSE=false
+
+usage() {
+    cat << EOF
+Usage: $0 [OPTIONS] input.md [output.pdf]
+
+Options:
+    -t, --template TEMPLATE     LaTeX template (article, book, report, custom)
+    -e, --engine ENGINE         LaTeX engine (xelatex, lualatex, pdflatex)
+    -m, --margin MARGIN         Page margins (default: 1in)
+    -f, --font-size SIZE        Font size (default: 11pt)
+    -s, --line-spacing SPACING  Line spacing (default: 1.2)
+    -c, --css FILE             Custom CSS file
+    -M, --metadata FILE        YAML metadata file
+    -b, --bibliography FILE    Bibliography file (.bib)
+    --csl FILE                 Citation style file (.csl)
+    -v, --verbose              Verbose output
+    -h, --help                 Show this help
+
+Examples:
+    $0 document.md
+    $0 -t book -e xelatex -m 0.75in document.md report.pdf
+    $0 --bibliography refs.bib --csl apa.csl academic.md
+EOF
+}
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -t|--template)
+            TEMPLATE="$2"
+            shift 2
+            ;;
+        -e|--engine)
+            ENGINE="$2"
+            shift 2
+            ;;
+        -m|--margin)
+            MARGIN="$2"
+            shift 2
+            ;;
+        -f|--font-size)
+            FONT_SIZE="$2"
+            shift 2
+            ;;
+        -s|--line-spacing)
+            LINE_SPACING="$2"
+            shift 2
+            ;;
+        -c|--css)
+            CUSTOM_CSS="$2"
+            shift 2
+            ;;
+        -M|--metadata)
+            METADATA_FILE="$2"
+            shift 2
+            ;;
+        -b|--bibliography)
+            BIBLIOGRAPHY="$2"
+            shift 2
+            ;;
+        --csl)
+            CSL_STYLE="$2"
+            shift 2
+            ;;
+        -v|--verbose)
+            VERBOSE=true
+            shift
+            ;;
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        -*)
+            echo "Unknown option: $1" >&2
+            usage
+            exit 1
+            ;;
+        *)
+            if [[ -z "$INPUT_FILE" ]]; then
+                INPUT_FILE="$1"
+            elif [[ -z "$OUTPUT_FILE" ]]; then
+                OUTPUT_FILE="$1"
+            else
+                echo "Too many arguments" >&2
+                usage
+                exit 1
+            fi
+            shift
+            ;;
+    esac
+done
+
+# Validate input
+if [[ -z "$INPUT_FILE" ]]; then
+    echo "Error: Input file required" >&2
+    usage
+    exit 1
+fi
+
+if [[ ! -f "$INPUT_FILE" ]]; then
+    echo "Error: Input file '$INPUT_FILE' not found" >&2
+    exit 1
+fi
+
+# Set default output file
+if [[ -z "$OUTPUT_FILE" ]]; then
+    OUTPUT_FILE="${INPUT_FILE%.*}.pdf"
+fi
+
+# Create temporary directory for LaTeX template
+TEMP_DIR=$(mktemp -d)
+trap "rm -rf $TEMP_DIR" EXIT
+
+# Generate custom LaTeX template
+generate_custom_template() {
+    cat > "$TEMP_DIR/custom.latex" << 'EOF'
+\documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$babel-lang$,$endif$$if(papersize)$$papersize$paper,$endif$$for(classoption)$$classoption$$sep$,$endfor$]{$documentclass$}
+
+% Package imports
+\usepackage[margin=$margin$]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc}
+\usepackage{etoolbox}
+\usepackage{footnotehyper}
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage{framed}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{microtype}
+
+% Font configuration
+$if(mainfont)$
+\usepackage{fontspec}
+\setmainfont{$mainfont$}
+$endif$
+
+% Line spacing
+\usepackage{setspace}
+\setstretch{$linespacing$}
+
+% Colors
+\definecolor{codebackground}{rgb}{0.95,0.95,0.95}
+\definecolor{codeborder}{rgb}{0.8,0.8,0.8}
+\definecolor{linkcolor}{rgb}{0,0,0.5}
+
+% Code formatting
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{
+  breaklines,
+  breakanywhere,
+  commandchars=\\\{\}
+}
+
+% Hyperlinks
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=linkcolor,
+  urlcolor=linkcolor,
+  citecolor=linkcolor,
+  pdftitle={$title-meta$},
+  pdfauthor={$author-meta$},
+  pdfsubject={$subject$},
+  pdfkeywords={$keywords$}
+}
+
+% Header and footer
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{$title$}
+\lhead{$author$}
+\cfoot{\thepage}
+
+% Title formatting
+\titleformat{\section}{\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+% Metadata
+$if(title)$
+\title{$title$}
+$endif$
+$if(author)$
+\author{$for(author)$$author$$sep$ \and $endfor$}
+$endif$
+$if(date)$
+\date{$date$}
+$endif$
+
+% Custom commands
+\newcommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Begin document
+\begin{document}
+
+$if(title)$
+\maketitle
+$endif$
+
+$if(abstract)$
+\begin{abstract}
+$abstract$
+\end{abstract}
+$endif$
+
+$if(toc)$
+\tableofcontents
+\newpage
+$endif$
+
+$body$
+
+$if(bibliography)$
+\printbibliography
+$endif$
+
+\end{document}
+EOF
+}
+
+# Build pandoc command
+build_pandoc_command() {
+    local cmd=(pandoc "$INPUT_FILE")
+    
+    # Output format and engine
+    cmd+=(--pdf-engine="$ENGINE")
+    cmd+=(--from=markdown+smart+footnotes+pipe_tables+fenced_code_blocks)
+    cmd+=(--to=latex)
+    
+    # Template
+    if [[ "$TEMPLATE" == "custom" ]]; then
+        generate_custom_template
+        cmd+=(--template="$TEMP_DIR/custom.latex")
+    else
+        cmd+=(--template="$TEMPLATE")
+    fi
+    
+    # Variables
+    cmd+=(--variable=documentclass:"${TEMPLATE:-article}")
+    cmd+=(--variable=margin:"$MARGIN")
+    cmd+=(--variable=fontsize:"$FONT_SIZE")
+    cmd+=(--variable=linespacing:"$LINE_SPACING")
+    cmd+=(--variable=geometry:margin="$MARGIN")
+    
+    # Additional options
+    cmd+=(--highlight-style=tango)
+    cmd+=(--number-sections)
+    cmd+=(--standalone)
+    
+    # Metadata
+    if [[ -n "$METADATA_FILE" && -f "$METADATA_FILE" ]]; then
+        cmd+=(--metadata-file="$METADATA_FILE")
+    fi
+    
+    # Bibliography
+    if [[ -n "$BIBLIOGRAPHY" && -f "$BIBLIOGRAPHY" ]]; then
+        cmd+=(--bibliography="$BIBLIOGRAPHY")
+    fi
+    
+    # CSL style
+    if [[ -n "$CSL_STYLE" && -f "$CSL_STYLE" ]]; then
+        cmd+=(--csl="$CSL_STYLE")
+    fi
+    
+    # CSS
+    if [[ -n "$CUSTOM_CSS" && -f "$CUSTOM_CSS" ]]; then
+        cmd+=(--css="$CUSTOM_CSS")
+    fi
+    
+    # Output
+    cmd+=(--output="$OUTPUT_FILE")
+    
+    echo "${cmd[@]}"
+}
+
+# Main execution
+main() {
+    local pandoc_cmd
+    pandoc_cmd=$(build_pandoc_command)
+    
+    if [[ "$VERBOSE" == true ]]; then
+        echo "Executing: $pandoc_cmd"
+        echo "Input: $INPUT_FILE"
+        echo "Output: $OUTPUT_FILE"
+        echo "Template: $TEMPLATE"
+        echo "Engine: $ENGINE"
+        echo
+    fi
+    
+    # Check dependencies
+    if ! command -v pandoc &> /dev/null; then
+        echo "Error: pandoc is required but not installed" >&2
+        exit 1
+    fi
+    
+    if ! command -v "$ENGINE" &> /dev/null; then
+        echo "Error: $ENGINE is required but not installed" >&2
+        exit 1
+    fi
+    
+    # Execute pandoc
+    eval "$pandoc_cmd"
+    
+    if [[ $? -eq 0 ]]; then
+        echo "✓ PDF generated successfully: $OUTPUT_FILE"
+    else
+        echo "✗ PDF generation failed" >&2
+        exit 1
+    fi
+}
+
+# Run main function
+main "$@"

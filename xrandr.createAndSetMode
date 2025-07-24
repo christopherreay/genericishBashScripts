@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Desired resolution
+WIDTH=$1
+HEIGHT=$2
+MODE_NAME="${WIDTH}x${HEIGHT}"
+
+# Generate modeline
+MODELINE=$(cvt $WIDTH $HEIGHT | grep -oP '(?<=Modeline ).*')
+
+# Extract the actual xrandr command parts
+NAME=$(echo "$MODELINE" | awk '{print $1}')
+ARGS=$(echo "$MODELINE" | cut -d' ' -f 2-)
+
+# Add the new mode
+xrandr --newmode "$NAME" $ARGS
+
+# Attach to Virtual-1
+xrandr --addmode Virtual-1 "$NAME"
+
+# Apply the mode
+xrandr --output Virtual-1 --mode "$NAME"
+

@@ -1,0 +1,2 @@
+. openContext inboxFlow
+useContextBrowser --user-data-dir=~/browserProfiles/inboxFlow

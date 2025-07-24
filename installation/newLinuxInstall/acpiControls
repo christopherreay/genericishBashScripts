@@ -1,0 +1,9 @@
+sudo apt install acpid
+sudo systemctl enable --now acpid
+
+sudo apt-get install brightnessctl
+
+sudo cp ~/Scripts/hardware/acpi/* /etc/acpi/events/
+
+sudo systemctl restart acpid
+

@@ -1,3 +1,2 @@
-. openContext defaultBrowserSetup 
-
+. openContext defaultBrowserSetup
 useContextBrowser --user-data-dir=~/browserProfiles/defaultBrowserSetup

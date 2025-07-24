@@ -1,4 +1,4 @@
-OPENAI_API_KEY=`cat ~/whisper.APIKEY`
+OPENAI_API_KEY=`cat ~/Scripts/openAI.files/whisper.APIKEY`
 
 
 curl https://api.openai.com/v1/audio/transcriptions \

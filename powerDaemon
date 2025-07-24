@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+LOCK="/tmp/powerDaemon.lock"
+HIBERNATE_MARKER="/tmp/powerDaemon.hibernate"
+
+if [ -e "$LOCK" ]; then
+    OLD_PID=$(cat "$LOCK")
+    if kill -0 "$OLD_PID" 2>/dev/null; then
+        echo "Killing existing battery_watch process: $OLD_PID"
+        kill "$OLD_PID"
+        sleep 1
+    fi
+    rm -f "$LOCK"
+fi
+echo $$ > "$LOCK"
+trap "rm -f $LOCK; rm -f $HIBERNATE_MARKER" EXIT
+
+BAT='/org/freedesktop/UPower/devices/battery_BAT1'
+LOW=15
+CRIT=5
+sleep 2;
+
+PCT=$(upower -i $BAT | awk '/percentage/ {gsub("%",""); print $2}')
+CHARGING=$(upower -i $BAT | awk '/state/ {print $2}')
+
+# Check if we just resumed from our own hibernation
+HIBERNATED_BY_ME=false
+if [ -f "$HIBERNATE_MARKER" ]; then
+    HIBERNATE_TIME=$(cat "$HIBERNATE_MARKER")
+    HIBERNATE_PCT=$(cat "${HIBERNATE_MARKER}.pct" 2>/dev/null || echo "unknown")
+    notify-send -t 3000 "Power Daemon: " "Resumed from hibernation at $(date -d @$HIBERNATE_TIME '+%H:%M'), was ${HIBERNATE_PCT}%, now ${PCT}%"
+    HIBERNATED_BY_ME=true
+    rm -f "$HIBERNATE_MARKER" "${HIBERNATE_MARKER}.pct"
+fi
+
+# If I hibernated, wait for charging cycle
+if [ "$HIBERNATED_BY_ME" = true ]; then
+    notify-send -t 3000 "Power Daemon: " "Waiting for charge cycle before resuming monitoring"
+    
+    # Wait until we get plugged in
+    while [[ "$CHARGING" != "charging" ]]; do
+        notify-send -t 5000 "Power Daemon: " "Waiting to be plugged in: ${PCT}%"
+        sleep 60
+        PCT=$(upower -i $BAT | awk '/percentage/ {gsub("%",""); print $2}')
+        CHARGING=$(upower -i $BAT | awk '/state/ {print $2}')
+    done
+    
+    # Wait until unplugged and above LOW
+    while [[ "$CHARGING" == "charging" ]] || (( PCT <= LOW )); do
+        if [[ "$CHARGING" == "charging" ]]; then
+            notify-send -t 3000 "Power Daemon: " "Charging: ${PCT}%"
+        else
+            notify-send -t 3000 "Power Daemon: " "Need more charge: ${PCT}% (need >${LOW}%)"
+        fi
+        sleep 60
+        PCT=$(upower -i $BAT | awk '/percentage/ {gsub("%",""); print $2}')
+        CHARGING=$(upower -i $BAT | awk '/state/ {print $2}')
+    done
+    
+    notify-send -t 3000 "Power Daemon: " "Charge cycle complete - resuming normal monitoring at ${PCT}%"
+fi
+
+# Normal monitoring
+notify-send -t 3000 "Power Daemon: " "Monitoring: ${PCT}%, LOW: ${LOW}, CRIT: ${CRIT}"
+
+while :; do
+    PCT=$(upower -i $BAT | awk '/percentage/ {gsub("%",""); print $2}')
+    
+    if (( PCT <= CRIT )); then
+        echo $(date +%s) > "$HIBERNATE_MARKER"
+        echo "$PCT" > "${HIBERNATE_MARKER}.pct"
+        notify-send -u critical "Battery $PCT % – hibernating!"
+        systemctl hibernate
+    elif (( PCT == LOW )); then
+        notify-send -u normal "Battery low: $PCT %"
+    fi
+    sleep 60
+done
+

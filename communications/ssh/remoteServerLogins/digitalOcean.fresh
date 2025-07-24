@@ -1,1 +1,1 @@
-ssh -A $1@fresh.christopherreay.com
+ssh -A $1@chrysalis.christopherreay.com

@@ -1,0 +1,215 @@
+\documentclass[12pt,letterpaper]{article}
+
+% Legal document formatting packages
+\usepackage[margin=1in,top=1.5in,bottom=1in]{geometry}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{lineno}
+\usepackage{xcolor}
+\usepackage{fontspec}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{calc}
+
+% Font configuration for legal documents
+\setmainfont{Times New Roman}
+\setsansfont{Arial}
+
+% Line spacing - legal standard
+\doublespacing
+
+% Line numbers for legal documents
+\usepackage{lineno}
+\linenumbers
+\renewcommand\linenumberfont{\normalfont\tiny\sffamily}
+
+% Legal document colors
+\definecolor{legalblue}{rgb}{0,0,0.5}
+\definecolor{signatureline}{rgb}{0.5,0.5,0.5}
+
+% Header and footer configuration
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize $if(document-title)$$document-title$$endif$}
+\fancyhead[R]{\footnotesize $if(date)$$date$$endif$}
+\fancyfoot[C]{\footnotesize Page \thepage\ of \pageref{LastPage}}
+\fancyfoot[L]{\footnotesize $if(confidentiality)$$confidentiality$$endif$}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% Section formatting - legal style
+\titleformat{\section}[block]
+  {\centering\large\bfseries}
+  {ARTICLE \thesection}
+  {0.5em}
+  {}
+
+\titleformat{\subsection}[block]
+  {\normalsize\bfseries}
+  {\thesubsection.}
+  {0.5em}
+  {}
+
+\titleformat{\subsubsection}[runin]
+  {\normalsize\bfseries}
+  {(\thesubsubsection)}
+  {0.5em}
+  {}
+
+% List formatting for legal documents
+\setlist[enumerate,1]{label=(\arabic*),leftmargin=*,itemsep=6pt}
+\setlist[enumerate,2]{label=(\alph*),leftmargin=*,itemsep=3pt}
+\setlist[enumerate,3]{label=(\roman*),leftmargin=*,itemsep=3pt}
+\setlist[itemize,1]{label=\textbullet,leftmargin=*,itemsep=6pt}
+
+% Signature block environment
+\newenvironment{signature}[2]{%
+  \vspace{2em}
+  \noindent
+  \begin{tabularx}{\textwidth}{@{}X@{\hspace{2em}}X@{}}
+  \textbf{#1} & \textbf{#2} \\
+  & \\
+  \rule{0.4\textwidth}{0.5pt} & \rule{0.4\textwidth}{0.5pt} \\
+  Signature & Date \\
+  & \\
+  \rule{0.4\textwidth}{0.5pt} & \\
+  Print Name & \\
+  \end{tabularx}
+}{%
+  \vspace{1em}
+}
+
+% Witness block environment
+\newenvironment{witness}{%
+  \vspace{2em}
+  \noindent
+  \textbf{WITNESS:}
+  \vspace{1em}
+  
+  \begin{tabularx}{\textwidth}{@{}X@{\hspace{2em}}X@{}}
+  \rule{0.4\textwidth}{0.5pt} & \rule{0.4\textwidth}{0.5pt} \\
+  Witness Signature & Date \\
+  & \\
+  \rule{0.4\textwidth}{0.5pt} & \\
+  Print Name & \\
+  \end{tabularx}
+}{%
+  \vspace{1em}
+}
+
+% Notary block environment
+\newenvironment{notary}{%
+  \vspace{2em}
+  \noindent
+  \textbf{NOTARY ACKNOWLEDGMENT:}
+  \vspace{1em}
+  
+  \noindent
+  State of \underline{\hspace{2in}} \\
+  County of \underline{\hspace{2in}} \\
+  \vspace{1em}
+  
+  \noindent
+  On this \underline{\hspace{1in}} day of \underline{\hspace{2in}}, 20\underline{\hspace{0.5in}}, 
+  before me personally appeared \underline{\hspace{3in}}, who proved to me on the basis of satisfactory evidence to be the person whose name is subscribed to the within instrument and acknowledged to me that he/she executed the same in his/her authorized capacity, and that by his/her signature on the instrument the person, or the entity upon behalf of which the person acted, executed the instrument.
+  \vspace{1em}
+  
+  \noindent
+  I certify under PENALTY OF PERJURY under the laws of the State of \underline{\hspace{2in}} that the foregoing paragraph is true and correct.
+  \vspace{2em}
+  
+  \noindent
+  \begin{tabularx}{\textwidth}{@{}X@{}}
+  \rule{0.5\textwidth}{0.5pt} \\
+  Signature of Notary Public \\
+  \end{tabularx}
+}{%
+  \vspace{1em}
+}
+
+% Legal clause environment
+\newenvironment{legalclause}[1]{%
+  \vspace{1em}
+  \noindent
+  \textbf{#1.} 
+}{%
+  \vspace{0.5em}
+}
+
+% Defined terms formatting
+\newcommand{\definedterm}[1]{\textbf{``#1''}}
+\newcommand{\crossref}[1]{\textbf{Section #1}}
+
+% Hyperlink setup for legal documents
+\hypersetup{
+  colorlinks=true,
+  linkcolor=legalblue,
+  urlcolor=legalblue,
+  citecolor=legalblue,
+  pdftitle={$title-meta$},
+  pdfauthor={$author-meta$},
+  pdfsubject={Legal Document},
+  pdfkeywords={Contract, Legal, Agreement}
+}
+
+% Custom title page for legal documents
+\renewcommand{\maketitle}{%
+  \begin{titlepage}
+    \centering
+    \vspace*{2in}
+    
+    {\LARGE\bfseries $if(title)$$title$$endif$}
+    
+    \vspace{1in}
+    
+    $if(parties)$
+    \large
+    Between:\\
+    \vspace{0.5em}
+    $for(parties)$
+    \textbf{$parties.name$}\\
+    $if(parties.address)$$parties.address$$endif$\\
+    $if(parties.role)$($parties.role$)$endif$\\
+    \vspace{0.5em}
+    $endfor$
+    $endif$
+    
+    \vspace{1in}
+    
+    $if(date)$
+    \large
+    Dated: $date$
+    $endif$
+    
+    \vfill
+    
+    $if(confidentiality)$
+    \footnotesize
+    \textcolor{red}{\textbf{$confidentiality$}}
+    $endif$
+    
+  \end{titlepage}
+  \newpage
+}
+
+% Document begins
+\begin{document}
+
+$if(title)$
+\maketitle
+$endif$
+
+$if(toc)$
+\tableofcontents
+\newpage
+$endif$
+
+$body$
+
+\end{document}

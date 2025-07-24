@@ -1,0 +1,2 @@
+. openContext DANGER.crypto.chrysalis
+useContextBrowser --user-data-dir=~/browserProfiles/DANGER.crypto.chrysalis

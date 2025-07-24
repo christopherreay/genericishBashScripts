@@ -1,0 +1,2 @@
+event=video/brightnessup.*
+action=/home/christopher/Scripts/hardware/brightnessUpDown.sh up

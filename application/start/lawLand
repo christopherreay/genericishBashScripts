@@ -1,0 +1,2 @@
+. openContext lawLand
+useContextBrowser --user-data-dir=~/browserProfiles/lawLand

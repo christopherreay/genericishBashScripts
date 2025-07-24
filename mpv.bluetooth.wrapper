@@ -1,0 +1,66 @@
+#!/bin/bash
+
+# Get the script's directory
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+CONFIG_DIR="$SCRIPT_DIR/mpv.bluetooth.wrapper.d"
+
+# Get the current default PulseAudio sink
+SINK=$(pactl info | grep 'Default Sink' | awk '{print $3}')
+DEVICE_ID=$(echo "$SINK" | grep -oP '(?<=bluez_sink\.)[A-F0-9_]+(?=\.a2dp_sink)' | tr '_' ':')
+
+
+notify-send "$DEVICE_ID"
+
+
+# Sanitize sink name to use as filename
+CONF_FILE="$CONFIG_DIR/$DEVICE_ID.conf"
+
+# Default options
+DELAY=0
+
+# Load config if exists
+if [[ -f "$CONF_FILE" ]]; then
+    source "$CONF_FILE"
+    notify-send "Loaded File: $CONF_FILE, $DELAY"
+
+fi
+
+#!/bin/bash
+
+
+# 1. Take webcam snapshot
+TMP_IMG="/tmp/ambient.jpg"
+ffmpeg -f v4l2 -video_size 640x480 -i /dev/video0 -frames:v 1 -y "$TMP_IMG" -loglevel quiet
+
+# 2. Analyze brightness (mean luminance)
+BRIGHTNESS=$(convert "$TMP_IMG" -colorspace Gray -format "%[fx:mean]" info:)
+
+# 3. Decide gamma and contrast based on brightness
+#    (you can tune thresholds here)
+if (( $(echo "$BRIGHTNESS < 0.015" | bc -l) )); then
+    GAMMA=53
+    CONTRAST=-92
+elif (( $(echo "$BRIGHTNESS < 0.03" | bc -l) )); then
+    GAMMA=40
+    CONTRAST=-40
+elif (( $(echo "$BRIGHTNESS < 0.2" | bc -l) )); then
+    GAMMA=26
+    CONTRAST=-26
+else
+    GAMMA=1.0
+    CONTRAST=1.0
+fi
+
+# 4. Run mpv with adjusted values
+#exec mpv --gamma="$GAMMA" --contrast="$CONTRAST" "$@"
+
+notify-send "brightness: $BRIGHTNESS: $GAMMA, $CONTRAST"
+
+notify-send "$@"
+# Run mpv with optional delay
+#if (( $(echo "$DELAY != 0" | bc -l) )); then
+    exec mpv --msg-level=ao=debug --audio-delay="$DELAY" --gamma="$GAMMA" --contrast="$CONTRAST" "$@" 
+#else
+#    exec mpv "$@"
+#fi
+

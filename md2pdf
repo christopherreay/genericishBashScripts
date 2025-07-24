@@ -1,0 +1,1 @@
+pandoc WhatsApp_  --listings -H listings-setup.tex --pdf-engine=xelatex   --output="$1.pdf" $1

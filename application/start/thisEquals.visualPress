@@ -1,2 +1,2 @@
-. openContext thisEquals
-google-chrome-beta --user-data-dir=$HOME/browserProfiles/thisEquals/chromium
+. openContext thisEquals.visualPress
+useContextBrowser --user-data-dir=~/browserProfiles/thisEquals.visualPress

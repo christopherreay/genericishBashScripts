@@ -1,0 +1,171 @@
+\documentclass[12pt,letterpaper]{article}
+
+% Legal document packages
+\usepackage[margin=1in,top=1.25in,bottom=1in]{geometry}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{lineno}
+\usepackage{xcolor}
+\usepackage{fontspec}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{calc}
+\usepackage{amssymb}
+
+% Font configuration
+\setmainfont{TeX Gyre Termes}[
+  BoldFont=TeX Gyre Termes Bold,
+  ItalicFont=TeX Gyre Termes Italic,
+  BoldItalicFont=TeX Gyre Termes Bold Italic
+]
+\setsansfont{TeX Gyre Heros}
+
+% Checkbox handling
+\newcommand{\checkbox}{☐}
+\newcommand{\checkedbox}{☑}
+
+% Page layout and spacing
+\doublespacing
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{12pt plus 4pt minus 2pt}
+\raggedbottom
+
+% Header and footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize $if(document-title)$$document-title$$endif$}
+\fancyhead[R]{\footnotesize $if(date)$$date$$endif$}
+\fancyfoot[C]{\footnotesize Page \thepage\ of \pageref{LastPage}}
+\fancyfoot[L]{\footnotesize $if(confidentiality)$$confidentiality$$endif$}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% Section formatting - force page breaks on major sections
+\titleformat{\section}[block]
+  {\clearpage\centering\large\bfseries}
+  {}
+  {0em}
+  {}
+  [\vspace{1em}]
+
+\titleformat{\subsection}[block]
+  {\normalsize\bfseries}
+  {}
+  {0em}
+  {}
+  [\vspace{0.5em}]
+
+\titleformat{\subsubsection}[block]
+  {\normalsize\bfseries}
+  {}
+  {0em}
+  {}
+  [\vspace{0.25em}]
+
+% List formatting
+\setlist[enumerate,1]{label=\arabic*.,leftmargin=*,itemsep=6pt}
+\setlist[enumerate,2]{label=(\alph*),leftmargin=*,itemsep=3pt}
+\setlist[itemize,1]{label=--,leftmargin=*,itemsep=6pt}
+
+% Legal environments
+\newenvironment{whereas}[1][WHEREAS]{
+  \noindent\textbf{#1}, 
+}{\par\vspace{6pt}}
+
+\newenvironment{nowtherefor}{
+  \vspace{12pt}
+  \noindent\textbf{NOW THEREFORE}, the parties agree as follows:\par
+  \vspace{6pt}
+}{}
+
+% Signature block
+\newenvironment{signatureblock}[2]{
+  \vspace{2em}
+  \noindent
+  \begin{tabularx}{\textwidth}{@{}X@{\hspace{1in}}X@{}}
+  \textbf{#1} & \textbf{#2} \\[2em]
+  \rule{0.45\textwidth}{0.5pt} & \rule{0.45\textwidth}{0.5pt} \\
+  Signature & Date \\[1em]
+  \rule{0.45\textwidth}{0.5pt} & \\
+  Print Name & \\
+  \end{tabularx}
+}{\vspace{1em}}
+
+% Payment confirmation block
+\newenvironment{paymentblock}{
+  \vspace{1em}
+  \noindent
+  \begin{tabularx}{\textwidth}{@{}X@{}}
+}{\end{tabularx}\vspace{1em}}
+
+% Hyperlink setup
+\hypersetup{
+  colorlinks=false,
+  pdfborder={0 0 0},
+  pdftitle={$title-meta$},
+  pdfauthor={$author-meta$},
+  pdfsubject={Legal Settlement Agreement}
+}
+
+% Title page
+\renewcommand{\maketitle}{%
+  \begin{titlepage}
+    \centering
+    \vspace*{1in}
+    
+    {\LARGE\bfseries $if(title)$$title$$endif$}
+    
+    \vspace{0.5in}
+    
+    $if(subtitle)$
+    {\Large $subtitle$}
+    \vspace{0.5in}
+    $endif$
+    
+    $if(parties)$
+    \large
+    $for(parties)$
+    \textbf{$parties.name$}\\
+    $if(parties.role)$($parties.role$)$endif$\\
+    $if(parties.passport)$Passport: $parties.passport$$endif$\\
+    \vspace{0.5em}
+    $endfor$
+    $endif$
+    
+    \vspace{1in}
+    
+    $if(date)$
+    \large
+    \textbf{Date:} $date$
+    $endif$
+    
+    \vfill
+    
+    $if(confidentiality)$
+    \footnotesize
+    \textcolor{red}{\textbf{$confidentiality$}}
+    $endif$
+    
+  \end{titlepage}
+  \newpage
+}
+
+% Custom page break command
+\newcommand{\pagebreak}{\clearpage}
+
+% Begin document
+\begin{document}
+
+$if(title)$
+\maketitle
+$endif$
+
+$body$
+
+\end{document}
