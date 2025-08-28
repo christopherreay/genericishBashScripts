@@ -1,0 +1,2 @@
+. openContext 5Pager
+useContextBrowser --user-data-dir=~/browserProfiles/5Pager

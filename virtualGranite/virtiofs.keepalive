@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# VM Keep-Alive Script
+# Prevents idle-state freezing by maintaining minimal I/O activity
+# Run in background to keep both qcow2 and virtiofs active
+
+LOG_FILE="/tmp/vm-keepalive.log"
+INTERVAL=45  # seconds between checks
+
+log_msg() {
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" | tee -a "$LOG_FILE"
+}
+
+# Create log file
+touch "$LOG_FILE"
+log_msg "VM keep-alive starting with ${INTERVAL}s interval"
+
+# Main keep-alive loop
+while true; do
+    # Keep qcow2 active (root filesystem)
+    ls /tmp > /dev/null 2>&1
+    ls /var > /dev/null 2>&1
+    
+    # Keep virtiofs shares active
+    ls /home/christopher/context > /dev/null 2>&1
+    ls /home/christopher/Scripts > /dev/null 2>&1
+    
+    # Optional: sync to ensure metadata writes
+    sync > /dev/null 2>&1
+    
+    # Log every 10 minutes to confirm it's running
+    #if [ $(($(date +%s) % 600)) -lt $INTERVAL ]; then
+        log_msg "Keep-alive tick - preventing idle state"
+    #fi
+    
+    sleep $INTERVAL
+done
