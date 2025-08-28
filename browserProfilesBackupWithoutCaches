@@ -1,6 +1,77 @@
-tar --exclude='*/Cache/*' \
+#!/bin/bash
+
+# Check if correct number of arguments provided
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <output_file.tar.gz> <source_directory>"
+    echo "Example: $0 profiles_backup.tar.gz /path/to/browserProfiles"
+    exit 1
+fi
+
+OUTPUT_FILE="$1"
+SOURCE_DIR="$2"
+
+# Check if source directory exists
+if [ ! -d "$SOURCE_DIR" ]; then
+    echo "Error: Source directory '$SOURCE_DIR' does not exist"
+    exit 1
+fi
+
+echo "Creating tar.gz backup of browser profiles without cache files..."
+echo "Source: $SOURCE_DIR"
+echo "Output: $OUTPUT_FILE"
+
+tar --exclude='*/Cache' \
+    --exclude='*/Cache/*' \
+    --exclude='*/GPUCache' \
     --exclude='*/GPUCache/*' \
+    --exclude='*/Code Cache' \
     --exclude='*/Code Cache/*' \
-    --exclude='*/Service Worker/CacheStorage/*' \
+    --exclude='*/Service Worker' \
+    --exclude='*/Service Worker/*' \
+    --exclude='*/File System' \
     --exclude='*/File System/*' \
-    -czf "$1" $2
+    --exclude='*/ShaderCache' \
+    --exclude='*/ShaderCache/*' \
+    --exclude='*/GrShaderCache' \
+    --exclude='*/GrShaderCache/*' \
+    --exclude='*/DawnCache' \
+    --exclude='*/DawnCache/*' \
+    --exclude='*/GraphiteDawnCache' \
+    --exclude='*/GraphiteDawnCache/*' \
+    --exclude='*/blob_storage' \
+    --exclude='*/blob_storage/*' \
+    --exclude='*/BrowserMetrics' \
+    --exclude='*/BrowserMetrics/*' \
+    --exclude='*/Extension Scripts' \
+    --exclude='*/Extension Scripts/*' \
+    --exclude='*/shared_proto_db' \
+    --exclude='*/shared_proto_db/*' \
+    --exclude='*/data_reduction_proxy_leveldb' \
+    --exclude='*/data_reduction_proxy_leveldb/*' \
+    --exclude='*/Site Characteristics Database' \
+    --exclude='*/Site Characteristics Database/*' \
+    --exclude='*/Platform Notifications' \
+    --exclude='*/Platform Notifications/*' \
+    --exclude='*/Feature Engagement Tracker' \
+    --exclude='*/Feature Engagement Tracker/*' \
+    --exclude='*/GCM Store' \
+    --exclude='*/GCM Store/*' \
+    --exclude='*/Download Service' \
+    --exclude='*/Download Service/*' \
+    --exclude='*/BudgetDatabase' \
+    --exclude='*/BudgetDatabase/*' \
+    --exclude='*/PersistentOriginTrials' \
+    --exclude='*/PersistentOriginTrials/*' \
+    --exclude='*/VideoDecodeStats' \
+    --exclude='*/VideoDecodeStats/*' \
+    --exclude='*/*.log' \
+    --use-compress-program=pigz \
+    -cvf "$OUTPUT_FILE" -C "$(dirname "$SOURCE_DIR")" "$(basename "$SOURCE_DIR")"
+
+if [ $? -eq 0 ]; then
+    echo "Backup created successfully: $OUTPUT_FILE"
+    echo "Size: $(ls -lh "$OUTPUT_FILE" | awk '{print $5}')"
+else
+    echo "Error: Failed to create backup"
+    exit 1
+fi
