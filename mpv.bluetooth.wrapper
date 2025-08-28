@@ -18,11 +18,20 @@ CONF_FILE="$CONFIG_DIR/$DEVICE_ID.conf"
 # Default options
 DELAY=0
 
+# On Debian, set audio delay to 0 (Debian handles audio sync properly)
+if [[ -f /etc/debian_version ]]; then
+    DELAY=0
+fi
+
 # Load config if exists
 if [[ -f "$CONF_FILE" ]]; then
     source "$CONF_FILE"
     notify-send "Loaded File: $CONF_FILE, $DELAY"
+fi
 
+# Override delay to 0 on Debian (takes precedence over config file)
+if [[ -f /etc/debian_version ]]; then
+    DELAY=0
 fi
 
 #!/bin/bash
@@ -47,8 +56,8 @@ elif (( $(echo "$BRIGHTNESS < 0.2" | bc -l) )); then
     GAMMA=26
     CONTRAST=-26
 else
-    GAMMA=1.0
-    CONTRAST=1.0
+    GAMMA=1
+    CONTRAST=1
 fi
 
 # 4. Run mpv with adjusted values
