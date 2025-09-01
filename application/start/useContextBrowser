@@ -1,4 +1,7 @@
-brave-browser-beta $1 $2 $3 $4 $5 $6 $7
+# Remove singleton lock files before starting
+#find ~/.config/BraveSoftware -name "SingletonLock" -delete 2>/dev/null
+
+brave-browser-beta --disable-features=LockProfileCookieDatabase --force-profile-unlock --no-first-run --no-sandbox $1 $2 $3 $4 $5 $6 $7
 #google-chrome-stable $1 $2 $3 $4 $5 $6 $7
 #google-chrome-beta $1 $2 $3 $5 $5 $6 $7
 #chromium-browser $1 $2 $3 $4 $5 $6 $7
