@@ -66,10 +66,12 @@ fi
 notify-send "brightness: $BRIGHTNESS: $GAMMA, $CONTRAST"
 
 notify-send "$@"
-# Run mpv with optional delay
-#if (( $(echo "$DELAY != 0" | bc -l) )); then
-    exec mpv --msg-level=ao=debug --audio-delay="$DELAY" --gamma="$GAMMA" --contrast="$CONTRAST" "$@" 
-#else
-#    exec mpv "$@"
-#fi
+# Run mpv with conditional audio delay (skip on Debian)
+if [[ -f /etc/debian_version ]]; then
+    # On Debian, don't use audio-delay at all
+    exec mpv --msg-level=ao=debug --gamma="$GAMMA" --contrast="$CONTRAST" "$@"
+else
+    # On non-Debian systems, use audio delay
+    exec mpv --msg-level=ao=debug --audio-delay="$DELAY" --gamma="$GAMMA" --contrast="$CONTRAST" "$@"
+fi
 
