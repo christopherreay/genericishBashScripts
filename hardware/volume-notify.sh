@@ -6,17 +6,17 @@ NOTIFY_ID_FILE="$HOME/.cache/volume_notify_id"
 mkdir -p "$(dirname "$NOTIFY_ID_FILE")"
 
 # Handle volume change
-step="5%"
+step="0.05"  # 5% as decimal for wpctl
 
 case "$ACTION" in
   up)
-    pactl set-sink-volume @DEFAULT_SINK@ +$step
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ ${step}+
     ;;
   down)
-    pactl set-sink-volume @DEFAULT_SINK@ -$step
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ ${step}-
     ;;
   mute)
-    pactl set-sink-mute @DEFAULT_SINK@ toggle
+    wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
     ;;
   *)
     echo "Usage: $0 up|down|mute"
@@ -26,8 +26,9 @@ esac
 
 
 # Get current volume/mute status
-volume=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\d+%' | head -1)
-muted=$(pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}')
+volume_info=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
+volume=$(echo "$volume_info" | awk '{printf "%.0f%%", $2 * 100}')
+muted=$(echo "$volume_info" | grep -q "MUTED" && echo "yes" || echo "no")
 
 # Build notification content
 if [ "$muted" == "yes" ]; then
