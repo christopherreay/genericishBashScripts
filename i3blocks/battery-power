@@ -1,0 +1,34 @@
+#!/bin/bash
+# Display battery power consumption in watts
+
+BAT_PATH="/sys/class/power_supply/BAT0"
+
+if [ ! -d "$BAT_PATH" ]; then
+    echo "No battery"
+    exit 0
+fi
+
+STATUS=$(cat "$BAT_PATH/status")
+VOLTAGE=$(cat "$BAT_PATH/voltage_now")
+CURRENT=$(cat "$BAT_PATH/current_now")
+CAPACITY=$(cat "$BAT_PATH/capacity")
+
+# Calculate watts (voltage * current / 1000000000)
+WATTS=$(awk "BEGIN {printf \"%.1f\", ($VOLTAGE * $CURRENT) / 1000000000}")
+
+# Remove negative sign for display
+WATTS_ABS=$(echo $WATTS | tr -d '-')
+
+# Choose icon based on status
+if [ "$STATUS" = "Charging" ]; then
+    ICON="⚡"
+elif [ "$STATUS" = "Discharging" ]; then
+    ICON="🔋"
+else
+    ICON="🔌"
+fi
+
+# Full text
+echo "$ICON $CAPACITY% ${WATTS_ABS}W"
+# Short text
+echo "$CAPACITY%"

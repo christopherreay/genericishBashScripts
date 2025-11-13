@@ -1,0 +1,82 @@
+# Suspend/Resume Testing Progress Log
+Date Started: 2025-09-19
+Hardware: Acer Nitro ANV15-51
+Kernel: 6.12.38+deb12-amd64
+
+## Baseline Measurements
+- Current failure rate: ~40%
+- Time to suspend: ~2-3 seconds
+- Time to resume (when successful): ~5-8 seconds
+- Common errors: ACPI BIOS, USB controller, SPD5118 sensor
+
+## Test Results
+
+### Test Branch 1: Memory/Sleep Mode Parameters
+[ ] mem_sleep_default=shallow
+    - Command: Add to GRUB_CMDLINE_LINUX_DEFAULT
+    - Expected: Faster resume, potentially more reliable
+    - Result:
+    - Failure rate:
+    - Notes:
+
+[ ] mem_sleep_default=deep
+    - Command: Add to GRUB_CMDLINE_LINUX_DEFAULT
+    - Expected: More thorough sleep, might fix ACPI issues
+    - Result:
+    - Failure rate:
+    - Notes:
+
+[ ] mem_sleep_default=s2idle
+    - Command: Add to GRUB_CMDLINE_LINUX_DEFAULT
+    - Expected: Modern suspend method, better hardware compatibility
+    - Result:
+    - Failure rate:
+    - Notes:
+
+### Test Branch 2: ACPI Workarounds
+[ ] acpi_sleep=nonvs
+    - Command: Add to GRUB_CMDLINE_LINUX_DEFAULT
+    - Expected: Skip problematic ACPI NVS regions
+    - Result:
+    - Failure rate:
+    - Notes:
+
+[ ] acpi_osi="Windows 2020"
+    - Command: Add to GRUB_CMDLINE_LINUX_DEFAULT
+    - Expected: Use Windows-compatible ACPI behavior
+    - Result:
+    - Failure rate:
+    - Notes:
+
+### Test Branch 3: Hardware Timing
+[ ] resume_delay=5000
+    - Command: Add to GRUB_CMDLINE_LINUX_DEFAULT
+    - Expected: Allow hardware more time to stabilize during resume
+    - Result:
+    - Failure rate:
+    - Notes:
+
+[ ] pcie_aspm=off
+    - Command: Add to GRUB_CMDLINE_LINUX_DEFAULT
+    - Expected: Disable problematic PCIe power management
+    - Result:
+    - Failure rate:
+    - Notes:
+
+### Test Branch 4: Driver/Hardware Fixes
+[ ] Fix SPD5118 resume without disabling
+    - Command: Kernel parameter or driver fix for memory sensor resume
+    - Expected: Keep temperature monitoring while fixing resume issue
+    - Result:
+    - Failure rate:
+    - Notes:
+
+[X] USB autosuspend disabled
+    - Command: Already applied via udev rules
+    - Expected: Prevent USB controller resume issues
+    - Result: Applied, testing in progress
+    - Notes: Part of earlier troubleshooting
+
+## Emergency Rollback Commands
+- Boot to original kernel: Select from GRUB menu
+- Remove test parameters: sudo nano /etc/default/grub, remove additions, sudo update-grub

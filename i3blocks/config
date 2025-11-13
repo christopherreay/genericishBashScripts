@@ -1,0 +1,10 @@
+# i3blocks configuration
+
+[battery-power]
+command=$SCRIPT_DIR/battery-power
+interval=5
+markup=pango
+
+[time]
+command=date '+%Y-%m-%d %H:%M:%S'
+interval=1
